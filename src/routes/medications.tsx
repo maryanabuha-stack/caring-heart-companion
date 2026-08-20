@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, Sun, CloudSun, Moon } from "lucide-react";
 import { PageShell } from "@/components/carenest/PageShell";
 import { MedicationCard } from "@/components/carenest/MedicationCard";
 import { MedicationDetailModal } from "@/components/carenest/MedicationDetailModal";
