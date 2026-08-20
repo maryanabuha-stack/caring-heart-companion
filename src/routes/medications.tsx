@@ -165,9 +165,13 @@ function Medications() {
         {groups.map((group) => {
           const rows = meds.filter((m) => m.group === group);
           if (rows.length === 0) return null;
+          const GroupIcon = groupIcon[group];
           return (
             <section key={group}>
-              <h2 className="mb-3 text-2xl font-semibold">{group}</h2>
+              <h2 className="mb-3 flex items-center gap-2 text-2xl font-semibold">
+                <GroupIcon aria-hidden="true" className="h-[18px] w-[18px] text-muted-foreground" />
+                {group}
+              </h2>
               <div className="flex flex-col gap-3 rounded-2xl bg-card p-5">
                 {rows.map((med) => (
                   <MedicationCard
