@@ -123,11 +123,6 @@ function SymptomTracking() {
                 >
                   <m.icon className="h-9 w-9" aria-hidden="true" />
                   <span className="text-lg font-semibold">{m.label}</span>
-                  {selected && (
-                    <span className="flex items-center gap-1 text-base font-medium">
-                      <Check className="h-4 w-4" aria-hidden="true" /> Selected
-                    </span>
-                  )}
                 </button>
               );
             })}

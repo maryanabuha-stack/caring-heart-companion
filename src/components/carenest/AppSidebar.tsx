@@ -20,7 +20,7 @@ export function AppSidebar() {
   const pathname = useRouterState({ select: (r) => r.location.pathname });
 
   return (
-    <aside className="flex w-[280px] shrink-0 flex-col bg-navy px-5 py-6 text-navy-foreground">
+    <aside className="flex w-[320px] shrink-0 flex-col bg-navy px-5 py-6 text-navy-foreground">
       <div className="flex items-center gap-3 px-2 pb-8">
         <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary text-primary-foreground">
           <BellRing className="h-6 w-6" />
@@ -42,7 +42,7 @@ export function AppSidebar() {
               }`}
             >
               <item.icon className="h-6 w-6 shrink-0" />
-              <span>{item.title}</span>
+              <span className="whitespace-nowrap">{item.title}</span>
             </Link>
           );
         })}
