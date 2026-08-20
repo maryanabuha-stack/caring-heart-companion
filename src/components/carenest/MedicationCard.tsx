@@ -58,11 +58,11 @@ export function MedicationCard({
 
   const icon =
     state === "missed" ? (
-      <AlertTriangle className="h-7 w-7 text-warning" />
+      <AlertTriangle className="h-7 w-7 text-warning" fill="currentColor" stroke="white" />
     ) : state === "taken" ? (
       <CheckCircle2 className="h-7 w-7 text-success" fill="currentColor" stroke="white" />
     ) : state === "due" ? (
-      <Clock className="h-7 w-7 text-primary" fill="currentColor" stroke="white" />
+      <Clock className="h-7 w-7 text-primary" />
     ) : (
       <Clock className="h-7 w-7 text-muted-foreground" />
     );
@@ -130,7 +130,7 @@ export function MedicationCard({
               onClick={() => setConfirmOpen(true)}
               className="flex min-h-[56px] items-center px-2 text-lg font-medium text-primary underline-offset-4 hover:underline"
             >
-              Tap to undo
+              Undo
             </button>
           )}
         </div>

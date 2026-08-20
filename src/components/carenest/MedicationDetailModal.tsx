@@ -75,7 +75,7 @@ export function MedicationDetailModal({
               onClick={() => setConfirmOpen(true)}
               className="flex min-h-[56px] w-full items-center justify-center rounded-2xl bg-row text-lg font-medium text-primary underline-offset-4 hover:underline"
             >
-              Taken - Tap to undo
+              Undo
             </button>
           ) : (
             <button
