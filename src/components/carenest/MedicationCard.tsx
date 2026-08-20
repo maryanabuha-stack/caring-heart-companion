@@ -21,6 +21,7 @@ export type MedicationCardProps = {
   nextReminderTime?: string | undefined;
   onMarkTaken?: () => void;
   onUndo?: () => void;
+  onOpenDetail?: () => void;
 };
 
 const surface: Record<MedicationState, string> = {
@@ -39,6 +40,7 @@ export function MedicationCard({
   nextReminderTime,
   onMarkTaken,
   onUndo,
+  onOpenDetail,
 }: MedicationCardProps) {
   const [confirmOpen, setConfirmOpen] = useState(false);
 
@@ -68,9 +70,27 @@ export function MedicationCard({
   const label =
     state === "missed" ? "Missed" : state === "taken" ? "Taken" : state === "due" ? "Next action" : "Next";
 
+  const interactive = Boolean(onOpenDetail);
+
   return (
     <div
-      className={`flex min-h-[88px] flex-wrap items-center gap-4 rounded-2xl ${surface[state]} px-5 py-4`}
+      {...(interactive
+        ? {
+            role: "button" as const,
+            tabIndex: 0,
+            "aria-label": `Open details for ${name}`,
+            onClick: onOpenDetail,
+            onKeyDown: (e: React.KeyboardEvent) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                onOpenDetail?.();
+              }
+            },
+          }
+        : {})}
+      className={`flex min-h-[88px] flex-wrap items-center gap-4 rounded-2xl ${surface[state]} px-5 py-4 ${
+        interactive ? "cursor-pointer text-left transition-colors hover:brightness-[0.98]" : ""
+      }`}
     >
       <span className="shrink-0">{icon}</span>
 
@@ -88,7 +108,7 @@ export function MedicationCard({
         </p>
       </div>
 
-      <div className="ml-auto">
+      <div className="ml-auto" onClick={(e) => e.stopPropagation()}>
         {(state === "due" || state === "missed") && (
           <button
             type="button"
