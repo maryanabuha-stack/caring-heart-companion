@@ -10,33 +10,81 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CommunicationRouteImport } from './routes/communication'
+import { Route as MedicationsRouteImport } from './routes/medications'
+import { Route as RemindersRouteImport } from './routes/reminders'
+import { Route as SymptomTrackingRouteImport } from './routes/symptom-tracking'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CommunicationRoute = CommunicationRouteImport.update({
+  id: '/communication',
+  path: '/communication',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MedicationsRoute = MedicationsRouteImport.update({
+  id: '/medications',
+  path: '/medications',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RemindersRoute = RemindersRouteImport.update({
+  id: '/reminders',
+  path: '/reminders',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SymptomTrackingRoute = SymptomTrackingRouteImport.update({
+  id: '/symptom-tracking',
+  path: '/symptom-tracking',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/communication': typeof CommunicationRoute
+  '/medications': typeof MedicationsRoute
+  '/reminders': typeof RemindersRoute
+  '/symptom-tracking': typeof SymptomTrackingRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/communication': typeof CommunicationRoute
+  '/medications': typeof MedicationsRoute
+  '/reminders': typeof RemindersRoute
+  '/symptom-tracking': typeof SymptomTrackingRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/communication': typeof CommunicationRoute
+  '/medications': typeof MedicationsRoute
+  '/reminders': typeof RemindersRoute
+  '/symptom-tracking': typeof SymptomTrackingRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    '/' | '/communication' | '/medications' | '/reminders' | '/symptom-tracking'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    '/' | '/communication' | '/medications' | '/reminders' | '/symptom-tracking'
+  id:
+    | '__root__'
+    | '/'
+    | '/communication'
+    | '/medications'
+    | '/reminders'
+    | '/symptom-tracking'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CommunicationRoute: typeof CommunicationRoute
+  MedicationsRoute: typeof MedicationsRoute
+  RemindersRoute: typeof RemindersRoute
+  SymptomTrackingRoute: typeof SymptomTrackingRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +96,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/communication': {
+      id: '/communication'
+      path: '/communication'
+      fullPath: '/communication'
+      preLoaderRoute: typeof CommunicationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/medications': {
+      id: '/medications'
+      path: '/medications'
+      fullPath: '/medications'
+      preLoaderRoute: typeof MedicationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reminders': {
+      id: '/reminders'
+      path: '/reminders'
+      fullPath: '/reminders'
+      preLoaderRoute: typeof RemindersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/symptom-tracking': {
+      id: '/symptom-tracking'
+      path: '/symptom-tracking'
+      fullPath: '/symptom-tracking'
+      preLoaderRoute: typeof SymptomTrackingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CommunicationRoute: CommunicationRoute,
+  MedicationsRoute: MedicationsRoute,
+  RemindersRoute: RemindersRoute,
+  SymptomTrackingRoute: SymptomTrackingRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

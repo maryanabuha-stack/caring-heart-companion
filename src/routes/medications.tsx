@@ -16,7 +16,7 @@ export const Route = createFileRoute("/medications")({
   component: Medications,
 });
 
-type Med = { id: string; name: string; time: string; state: "upcoming" | "due" | "missed" | "taken"; takenAt?: string };
+type Med = { id: string; name: string; time: string; state: "upcoming" | "due" | "missed" | "taken"; takenAt?: string | undefined };
 
 function Medications() {
   const [meds, setMeds] = useState<Med[]>([

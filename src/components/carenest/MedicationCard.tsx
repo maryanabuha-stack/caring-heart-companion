@@ -17,8 +17,8 @@ export type MedicationCardProps = {
   state: MedicationState;
   name?: string;
   time?: string;
-  takenAt?: string;
-  nextReminderTime?: string;
+  takenAt?: string | undefined;
+  nextReminderTime?: string | undefined;
   onMarkTaken?: () => void;
   onUndo?: () => void;
 };

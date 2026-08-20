@@ -35,7 +35,7 @@ type Med = {
   name: string;
   time: string;
   state: "upcoming" | "due" | "missed" | "taken";
-  takenAt?: string;
+  takenAt?: string | undefined;
 };
 
 const initialMeds: Med[] = [
