@@ -42,10 +42,7 @@ export function MedicationDetailModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent
-        showCloseButton={false}
-        className="max-w-[560px] rounded-2xl border-0 bg-card p-7"
-      >
+      <DialogContent className="max-w-[560px] rounded-2xl border-0 bg-card p-7 [&>button:last-of-type]:hidden">
         <button
           type="button"
           aria-label="Close"
