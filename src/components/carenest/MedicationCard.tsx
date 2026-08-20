@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Clock, AlertTriangle, CheckCircle2 } from "lucide-react";
+import { Clock, AlertTriangle, CheckCircle2, ChevronRight } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -108,27 +108,43 @@ export function MedicationCard({
         </p>
       </div>
 
-      <div className="ml-auto" onClick={(e) => e.stopPropagation()}>
-        {(state === "due" || state === "missed") && (
-          <button
-            type="button"
-            onClick={onMarkTaken}
-            className="min-h-[56px] rounded-2xl bg-primary px-6 text-lg font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            {state === "missed" ? "Mark as taken now" : "Mark as taken"}
-          </button>
-        )}
+      <div className="ml-auto flex items-center gap-3">
+        <div onClick={(e) => e.stopPropagation()}>
+          {(state === "due" || state === "missed") && (
+            <button
+              type="button"
+              onClick={onMarkTaken}
+              className={`min-h-[56px] rounded-2xl px-6 text-lg font-semibold transition-opacity hover:opacity-90 ${
+                state === "missed"
+                  ? "bg-warning-strong text-warning-strong-foreground"
+                  : "bg-primary text-primary-foreground"
+              }`}
+            >
+              {state === "missed" ? "Mark as taken now" : "Mark as taken"}
+            </button>
+          )}
 
-        {state === "taken" && (
-          <button
-            type="button"
-            onClick={() => setConfirmOpen(true)}
-            className="flex min-h-[56px] items-center px-2 text-lg font-medium text-primary underline-offset-4 hover:underline"
-          >
-            Tap to undo
-          </button>
+          {state === "taken" && (
+            <button
+              type="button"
+              onClick={() => setConfirmOpen(true)}
+              className="flex min-h-[56px] items-center px-2 text-lg font-medium text-primary underline-offset-4 hover:underline"
+            >
+              Tap to undo
+            </button>
+          )}
+        </div>
+
+        {interactive && (
+          <ChevronRight
+            aria-hidden="true"
+            className={`h-6 w-6 shrink-0 ${
+              state === "missed" ? "text-warning-foreground/60" : "text-muted-foreground"
+            }`}
+          />
         )}
       </div>
+
 
       <AlertDialog open={confirmOpen} onOpenChange={setConfirmOpen}>
         <AlertDialogContent className="rounded-2xl">

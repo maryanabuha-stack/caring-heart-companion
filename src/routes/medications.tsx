@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, Sun, CloudSun, Moon } from "lucide-react";
 import { PageShell } from "@/components/carenest/PageShell";
 import { MedicationCard } from "@/components/carenest/MedicationCard";
 import { MedicationDetailModal } from "@/components/carenest/MedicationDetailModal";
@@ -97,6 +97,12 @@ const initialMeds: Med[] = [
 
 const groups: Group[] = ["Morning", "Afternoon", "Evening"];
 
+const groupIcon: Record<Group, typeof Sun> = {
+  Morning: Sun,
+  Afternoon: CloudSun,
+  Evening: Moon,
+};
+
 function nowLabel() {
   return new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
 }
@@ -134,7 +140,10 @@ function Medications() {
 
   return (
     <PageShell>
-      <h1 className="mb-6 text-3xl font-semibold">Medications</h1>
+      <h1 className="text-3xl font-semibold">Medications</h1>
+      <p className="mb-6 mt-2 text-[15px] text-muted-foreground">
+        See your medications for today and mark them as taken. Tap any medication for more details.
+      </p>
 
       <div aria-live="polite" className="min-h-0">
         {banner && (
@@ -156,9 +165,13 @@ function Medications() {
         {groups.map((group) => {
           const rows = meds.filter((m) => m.group === group);
           if (rows.length === 0) return null;
+          const GroupIcon = groupIcon[group];
           return (
             <section key={group}>
-              <h2 className="mb-3 text-2xl font-semibold">{group}</h2>
+              <h2 className="mb-3 flex items-center gap-2 text-2xl font-semibold">
+                <GroupIcon aria-hidden="true" className="h-[18px] w-[18px] text-muted-foreground" />
+                {group}
+              </h2>
               <div className="flex flex-col gap-3 rounded-2xl bg-card p-5">
                 {rows.map((med) => (
                   <MedicationCard
