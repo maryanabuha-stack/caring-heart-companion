@@ -140,7 +140,10 @@ function Medications() {
 
   return (
     <PageShell>
-      <h1 className="mb-6 text-3xl font-semibold">Medications</h1>
+      <h1 className="text-3xl font-semibold">Medications</h1>
+      <p className="mb-6 mt-2 text-[15px] text-muted-foreground">
+        See your medications for today and mark them as taken. Tap any medication for more details.
+      </p>
 
       <div aria-live="polite" className="min-h-0">
         {banner && (
