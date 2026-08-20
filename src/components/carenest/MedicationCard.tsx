@@ -105,7 +105,7 @@ export function MedicationCard({
             onClick={() => setConfirmOpen(true)}
             className="flex min-h-[56px] items-center px-2 text-lg font-medium text-primary underline-offset-4 hover:underline"
           >
-            Taken - Tap to undo
+            Tap to undo
           </button>
         )}
       </div>
