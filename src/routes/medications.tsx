@@ -97,6 +97,12 @@ const initialMeds: Med[] = [
 
 const groups: Group[] = ["Morning", "Afternoon", "Evening"];
 
+const groupIcon: Record<Group, typeof Sun> = {
+  Morning: Sun,
+  Afternoon: CloudSun,
+  Evening: Moon,
+};
+
 function nowLabel() {
   return new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
 }
