@@ -80,6 +80,8 @@
   --warning: oklch(0.66 0.13 75);
   --warning-surface: oklch(0.955 0.045 85);
   --warning-foreground: oklch(0.42 0.09 70);
+  --warning-strong: #92400e;
+  --warning-strong-foreground: oklch(0.99 0 0);
 }
 
 @layer base {
