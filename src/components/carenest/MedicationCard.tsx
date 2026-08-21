@@ -67,11 +67,12 @@ export function MedicationCard({
         />
         <AlertTriangle
           aria-hidden="true"
-          className="absolute inset-0 h-7 w-7 text-warning-badge [&>path:first-of-type]:hidden"
+          className="absolute inset-0 h-7 w-7 text-card [&>path:first-of-type]:hidden"
           strokeWidth={2.5}
           fill="none"
           stroke="currentColor"
         />
+
       </span>
     ) : state === "taken" ? (
       <span className="flex h-6 w-6 items-center justify-center rounded-full bg-success">
