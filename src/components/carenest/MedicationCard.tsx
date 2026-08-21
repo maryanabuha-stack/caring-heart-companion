@@ -58,12 +58,21 @@ export function MedicationCard({
 
   const icon =
     state === "missed" ? (
-      <AlertTriangle
-        className="h-7 w-7 text-warning"
-        strokeWidth={2.25}
-        fill="currentColor"
-        stroke="var(--card)"
-      />
+      <span className="relative flex h-7 w-7 items-center justify-center">
+        <AlertTriangle
+          className="h-7 w-7 text-warning"
+          strokeWidth={2}
+          fill="currentColor"
+          stroke="currentColor"
+        />
+        <AlertTriangle
+          aria-hidden="true"
+          className="absolute inset-0 h-7 w-7 text-card [&>path:first-of-type]:hidden"
+          strokeWidth={2.5}
+          fill="none"
+          stroke="currentColor"
+        />
+      </span>
     ) : state === "taken" ? (
       <span className="flex h-7 w-7 items-center justify-center rounded-full bg-success">
         <Check className="h-5 w-5 text-card" strokeWidth={3} />
