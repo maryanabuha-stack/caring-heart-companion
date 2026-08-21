@@ -22,8 +22,8 @@ export function AppSidebar() {
   return (
     <aside className="flex w-[320px] shrink-0 flex-col bg-navy px-5 py-6 text-navy-foreground">
       <div className="flex items-center gap-3 px-2 pb-8">
-        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary text-primary-foreground">
-          <BellRing className="h-6 w-6" />
+        <div className="flex h-11 w-11 items-center justify-center rounded-full bg-primary text-xl font-bold text-primary-foreground">
+          C
         </div>
         <span className="text-2xl font-semibold">CareNest</span>
       </div>
