@@ -127,7 +127,7 @@ function Reminders() {
                         takenAt={item.doneAt}
                         onMarkTaken={() => markDone(item)}
                         onUndo={() => undo(item)}
-                        className="shadow-sm"
+                        
                       />
                     ))}
                   </div>
