@@ -22,6 +22,7 @@ export type MedicationCardProps = {
   onMarkTaken?: () => void;
   onUndo?: () => void;
   onOpenDetail?: () => void;
+  className?: string;
 };
 
 const surface: Record<MedicationState, string> = {
@@ -41,6 +42,7 @@ export function MedicationCard({
   onMarkTaken,
   onUndo,
   onOpenDetail,
+  className = "",
 }: MedicationCardProps) {
   const [confirmOpen, setConfirmOpen] = useState(false);
 
@@ -107,7 +109,7 @@ export function MedicationCard({
         : {})}
       className={`flex min-h-[88px] flex-wrap items-center gap-4 rounded-2xl ${surface[state]} px-5 py-4 transition-colors duration-300 ease-out ${
         interactive ? "cursor-pointer text-left hover:brightness-[0.98]" : ""
-      }`}
+      } ${className}`}
     >
       <span className="flex h-10 w-10 shrink-0 items-center justify-center">{icon}</span>
 
