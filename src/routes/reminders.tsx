@@ -55,16 +55,38 @@ const sections: {
   { label: "Completed", states: ["taken"] },
 ];
 
-const tomorrow = [
-  { name: "Lisinopril", time: "8:00 AM" },
-  { name: "Vitamin D", time: "9:00 AM" },
-  { name: "Drink a glass of water", time: "9:30 AM" },
-  { name: "Metformin", time: "12:30 PM" },
-  { name: "Aspirin", time: "2:00 PM" },
-  { name: "Take a short walk", time: "3:00 PM" },
-  { name: "Atorvastatin", time: "6:00 PM" },
-  { name: "Melatonin", time: "9:00 PM" },
+type TomorrowGroup = { label: string; icon: LucideIcon; items: { name: string; time: string }[] };
+
+const tomorrowGroups: TomorrowGroup[] = [
+  {
+    label: "Morning",
+    icon: Sun,
+    items: [
+      { name: "Lisinopril", time: "8:00 AM" },
+      { name: "Vitamin D", time: "9:00 AM" },
+      { name: "Drink a glass of water", time: "9:30 AM" },
+    ],
+  },
+  {
+    label: "Afternoon",
+    icon: CloudSun,
+    items: [
+      { name: "Metformin", time: "12:30 PM" },
+      { name: "Aspirin", time: "2:00 PM" },
+      { name: "Take a short walk", time: "3:00 PM" },
+    ],
+  },
+  {
+    label: "Evening",
+    icon: Moon,
+    items: [
+      { name: "Atorvastatin", time: "6:00 PM" },
+      { name: "Melatonin", time: "9:00 PM" },
+    ],
+  },
 ];
+
+const tomorrow = tomorrowGroups.flatMap((g) => g.items);
 
 function Reminders() {
   const [items, setItems] = useState<Reminder[]>(initialReminders);
