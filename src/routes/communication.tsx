@@ -190,26 +190,25 @@ function Communication() {
         </section>
 
         <section>
-          <h2 className="mb-3 text-2xl font-semibold">Quick replies</h2>
-          <div className="flex flex-wrap gap-3 rounded-2xl bg-card p-5">
-            {quickReplies.map((q) => (
-              <button
-                key={q}
-                type="button"
-                onClick={() => sendMessage(q)}
-                className="min-h-[56px] flex-1 rounded-2xl border-2 border-border bg-neutral-row px-6 text-lg font-medium transition-colors hover:bg-tint"
-              >
-                {q}
-              </button>
-            ))}
-          </div>
-        </section>
-
-        <section>
           <h2 className="mb-3 text-2xl font-semibold">
             <label htmlFor="compose">Write a message</label>
           </h2>
-          <div className="flex flex-col gap-3 rounded-2xl bg-card p-5 sm:flex-row">
+          <div className="rounded-2xl bg-card p-5">
+            <p className="mb-3 text-sm font-medium text-muted-foreground">Quick replies</p>
+            <div className="flex flex-wrap gap-3">
+              {quickReplies.map((q) => (
+                <button
+                  key={q}
+                  type="button"
+                  onClick={() => sendMessage(q)}
+                  className="min-h-[56px] flex-1 rounded-2xl border-2 border-border bg-neutral-row px-6 text-lg font-medium transition-colors hover:bg-tint"
+                >
+                  {q}
+                </button>
+              ))}
+            </div>
+
+            <div className="mt-5 flex flex-col gap-3 border-t border-border pt-5 sm:flex-row">
             <input
               id="compose"
               ref={composeRef}
