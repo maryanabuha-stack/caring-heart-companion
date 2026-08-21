@@ -4,6 +4,8 @@ import { CheckCircle2, Sun, CloudSun, Moon } from "lucide-react";
 import { PageShell } from "@/components/carenest/PageShell";
 import { MedicationCard } from "@/components/carenest/MedicationCard";
 import { MedicationDetailModal } from "@/components/carenest/MedicationDetailModal";
+import { useNow } from "@/hooks/use-now";
+import { byPriority, medState, nowLabel } from "@/lib/med-time";
 import type { MedicationDetail } from "@/components/carenest/MedicationDetailModal";
 
 export const Route = createFileRoute("/medications")({
@@ -29,7 +31,7 @@ export const Route = createFileRoute("/medications")({
 });
 
 type Group = "Morning" | "Afternoon" | "Evening";
-type Med = MedicationDetail & { group: Group };
+type Med = Omit<MedicationDetail, "state"> & { group: Group };
 
 const initialMeds: Med[] = [
   {
@@ -40,7 +42,6 @@ const initialMeds: Med[] = [
     schedule: "Once a day, in the morning · 8:00 AM",
     purpose: "Helps keep your blood pressure at a healthy level.",
     time: "8:00 AM",
-    state: "due",
   },
   {
     id: "2",
@@ -50,7 +51,6 @@ const initialMeds: Med[] = [
     schedule: "Once a day, with breakfast · 9:00 AM",
     purpose: "Supports strong bones and general wellbeing.",
     time: "9:00 AM",
-    state: "taken",
     takenAt: "9:05 AM",
   },
   {
@@ -61,7 +61,6 @@ const initialMeds: Med[] = [
     schedule: "Twice a day, with food · 12:30 PM",
     purpose: "Helps control blood sugar levels.",
     time: "12:30 PM",
-    state: "missed",
   },
   {
     id: "4",
@@ -71,7 +70,6 @@ const initialMeds: Med[] = [
     schedule: "Once a day, after lunch · 2:00 PM",
     purpose: "Helps protect your heart.",
     time: "2:00 PM",
-    state: "upcoming",
   },
   {
     id: "5",
@@ -81,7 +79,6 @@ const initialMeds: Med[] = [
     schedule: "Once a day, in the evening · 6:00 PM",
     purpose: "Helps keep your cholesterol under control.",
     time: "6:00 PM",
-    state: "upcoming",
   },
   {
     id: "6",
@@ -91,7 +88,6 @@ const initialMeds: Med[] = [
     schedule: "Once a day, before bed · 9:00 PM",
     purpose: "Helps you fall asleep more easily.",
     time: "9:00 PM",
-    state: "upcoming",
   },
 ];
 
@@ -103,26 +99,13 @@ const groupIcon: Record<Group, typeof Sun> = {
   Evening: Moon,
 };
 
-const stateOrder: Partial<Record<Med["state"], number>> = {
-  missed: 0,
-  due: 1,
-  upcoming: 2,
-  taken: 3,
-};
-
-function byPriority(a: Med, b: Med) {
-  return (stateOrder[a.state] ?? 9) - (stateOrder[b.state] ?? 9);
-}
-
-function nowLabel() {
-  return new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
-}
-
 function Medications() {
   const [meds, setMeds] = useState<Med[]>(initialMeds);
   const [banner, setBanner] = useState<string | null>(null);
   const [openId, setOpenId] = useState<string | null>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const now = useNow() ?? new Date(2000, 0, 1, 0, 0);
+  const withState = meds.map((m) => ({ ...m, state: medState(m.time, m.takenAt, now) }));
 
   useEffect(() => () => { if (timer.current) clearTimeout(timer.current); }, []);
 
@@ -134,20 +117,20 @@ function Medications() {
 
   const markTaken = (med: Med) => {
     setMeds((prev) =>
-      prev.map((m) => (m.id === med.id ? { ...m, state: "taken", takenAt: nowLabel() } : m)),
+      prev.map((m) => (m.id === med.id ? { ...m, takenAt: nowLabel() } : m)),
     );
     announce(`${med.name} marked as taken`);
   };
 
   const undo = (med: Med) => {
     setMeds((prev) =>
-      prev.map((m) => (m.id === med.id ? { ...m, state: "due", takenAt: undefined } : m)),
+      prev.map((m) => (m.id === med.id ? { ...m, takenAt: undefined } : m)),
     );
     announce(`${med.name} moved back to today's medications`);
   };
 
-  const allTaken = meds.every((m) => m.state === "taken");
-  const openMed = meds.find((m) => m.id === openId) ?? null;
+  const allTaken = withState.every((m) => m.state === "taken");
+  const openMed = withState.find((m) => m.id === openId) ?? null;
 
   return (
     <PageShell>
@@ -174,7 +157,7 @@ function Medications() {
 
       <div className="flex flex-col gap-8">
         {groups.map((group) => {
-          const rows = meds.filter((m) => m.group === group).sort(byPriority);
+          const rows = withState.filter((m) => m.group === group).sort(byPriority);
           if (rows.length === 0) return null;
           const GroupIcon = groupIcon[group];
           return (
