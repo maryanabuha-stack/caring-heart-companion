@@ -82,10 +82,6 @@
   --row: oklch(0.965 0.014 250);
   --neutral-row: oklch(0.955 0.004 250);
   --success: oklch(0.55 0.14 155);
-  --warning: oklch(0.66 0.13 75);
-  --warning-surface: oklch(0.955 0.045 85);
-  --warning-foreground: oklch(0.42 0.09 70);
-  --success: oklch(0.55 0.14 155);
   --success-badge: oklch(0.94 0.05 155);
   --warning: oklch(0.66 0.13 75);
   --warning-badge: oklch(0.93 0.06 80);
@@ -96,6 +92,7 @@
   --warning-strong: #92400e;
   --warning-strong-foreground: oklch(0.99 0 0);
 }
+
 
 
 @layer base {
