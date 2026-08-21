@@ -167,7 +167,7 @@ function Dashboard() {
           </div>
         </section>
 
-        <section>
+        <section className="mt-3">
           <h2 className="mb-4 text-2xl font-semibold">Quick access</h2>
           <div className="grid grid-cols-2 gap-4">
             <QuickTile
