@@ -39,11 +39,16 @@
   --color-row: var(--row);
   --color-neutral-row: var(--neutral-row);
   --color-success: var(--success);
+  --color-success-badge: var(--success-badge);
   --color-warning: var(--warning);
+  --color-warning-badge: var(--warning-badge);
+  --color-info-badge: var(--info-badge);
+  --color-neutral-badge: var(--neutral-badge);
   --color-warning-surface: var(--warning-surface);
   --color-warning-foreground: var(--warning-foreground);
   --color-warning-strong: var(--warning-strong);
   --color-warning-strong-foreground: var(--warning-strong-foreground);
+
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
 }
 
