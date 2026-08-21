@@ -171,7 +171,7 @@ function Communication() {
                 <div key={m.id} className="flex min-h-[72px] gap-4 rounded-2xl bg-row px-5 py-4">
                   <span
                     aria-hidden="true"
-                    className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-neutral-row text-base font-semibold text-muted-foreground"
+                    className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-tint text-base font-semibold text-tint-foreground"
                   >
                     {m.initials}
                   </span>
