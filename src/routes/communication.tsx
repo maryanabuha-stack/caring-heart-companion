@@ -168,13 +168,21 @@ function Communication() {
               </div>
             ) : (
               messages.map((m) => (
-                <div key={m.id} className="min-h-[72px] rounded-2xl bg-row px-5 py-4">
-                  <p className="text-xl font-semibold">
-                    {m.name}
-                    <span className="font-normal text-muted-foreground">, {m.role}</span>
-                  </p>
-                  <p className="mt-1 text-lg">{m.preview}</p>
-                  <p className="mt-1 text-base text-muted-foreground">{m.time}</p>
+                <div key={m.id} className="flex min-h-[72px] gap-4 rounded-2xl bg-row px-5 py-4">
+                  <span
+                    aria-hidden="true"
+                    className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-neutral-row text-base font-semibold text-muted-foreground"
+                  >
+                    {m.initials}
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xl font-semibold">
+                      {m.name}
+                      <span className="font-normal text-muted-foreground">, {m.role}</span>
+                    </p>
+                    <p className="mt-1 text-lg">{m.preview}</p>
+                    <p className="mt-1 text-base text-muted-foreground">{m.time}</p>
+                  </div>
                 </div>
               ))
             )}
