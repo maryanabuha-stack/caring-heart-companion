@@ -40,13 +40,14 @@ const CAREGIVER = "Sarah";
 const CAREGIVER_PHONE = "+1 (555) 014-2837";
 const CAREGIVER_TEL = "+15550142837";
 
-type Message = { id: string; name: string; role: string; preview: string; time: string };
+type Message = { id: string; name: string; role: string; preview: string; time: string; initials: string };
 
 const initialMessages: Message[] = [
   {
     id: "m1",
     name: "Sarah",
     role: "Caregiver",
+    initials: "SB",
     preview: "I'll drop by around 4pm with your prescription.",
     time: "Today, 10:15 AM",
   },
@@ -54,6 +55,7 @@ const initialMessages: Message[] = [
     id: "m2",
     name: "Dr. Bowman",
     role: "GP",
+    initials: "DB",
     preview: "Your blood pressure readings look good. Keep taking Lisinopril.",
     time: "Yesterday, 3:40 PM",
   },
@@ -61,6 +63,7 @@ const initialMessages: Message[] = [
     id: "m3",
     name: "Sarah",
     role: "Caregiver",
+    initials: "SB",
     preview: "Remember to drink water with your afternoon tablet.",
     time: "Monday, 1:05 PM",
   },
@@ -93,7 +96,7 @@ function Communication() {
     const trimmed = text.trim();
     if (!trimmed) return;
     setMessages((prev) => [
-      { id: `${Date.now()}`, name: "You", role: "to your care team", preview: trimmed, time: nowLabel() },
+      { id: `${Date.now()}`, name: "You", role: "to your care team", initials: "ME", preview: trimmed, time: nowLabel() },
       ...prev,
     ]);
     announce("Message sent");
