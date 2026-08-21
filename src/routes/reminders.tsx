@@ -117,7 +117,7 @@ function Reminders() {
               return (
                 <div key={section.label} className={sectionIndex === 0 ? "" : "mt-10"}>
                   <p className="mb-3 text-sm font-medium text-muted-foreground">{section.label}</p>
-                  <div className="flex flex-col gap-6">
+                  <div className="flex flex-col gap-3">
                     {sectionRows.map((item) => (
                       <MedicationCard
                         key={item.id}
@@ -127,7 +127,7 @@ function Reminders() {
                         takenAt={item.doneAt}
                         onMarkTaken={() => markDone(item)}
                         onUndo={() => undo(item)}
-                        className="shadow-sm"
+                        
                       />
                     ))}
                   </div>
