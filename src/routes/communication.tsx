@@ -89,7 +89,7 @@ function Communication() {
     const trimmed = text.trim();
     if (!trimmed) return;
     setMessages((prev) => [
-      { id: `${Date.now()}`, name: "You", role: `to ${CAREGIVER}, Caregiver`, preview: trimmed, time: nowLabel() },
+      { id: `${Date.now()}`, name: "You", role: "to your care team", preview: trimmed, time: nowLabel() },
       ...prev,
     ]);
     announce("Message sent");
@@ -103,7 +103,7 @@ function Communication() {
       strong: false,
     },
     {
-      label: "Message my doctor",
+      label: "Message care team",
       icon: MessageSquare,
       onClick: () => composeRef.current?.focus(),
       strong: false,
@@ -120,7 +120,8 @@ function Communication() {
     <PageShell>
       <h1 className="text-3xl font-semibold">Contact your care team</h1>
       <p className="mb-6 mt-2 text-[15px] text-muted-foreground">
-        Call, message, or ask for help. Someone from your care team will get back to you.
+        Call, message, or ask for help. Your whole care team can see messages here, and someone
+        will get back to you.
       </p>
 
       <div aria-live="polite" className="min-h-0">
@@ -157,16 +158,26 @@ function Communication() {
         <section>
           <h2 className="mb-3 text-2xl font-semibold">Recent messages</h2>
           <div className="flex flex-col gap-3 rounded-2xl bg-card p-5">
-            {messages.map((m) => (
-              <div key={m.id} className="min-h-[72px] rounded-2xl bg-row px-5 py-4">
-                <p className="text-xl font-semibold">
-                  {m.name}
-                  <span className="font-normal text-muted-foreground">, {m.role}</span>
+            {messages.length === 0 ? (
+              <div className="flex flex-col items-center gap-3 rounded-2xl bg-row px-6 py-10 text-center">
+                <MessageSquare className="h-14 w-14 text-muted-foreground" strokeWidth={2} aria-hidden="true" />
+                <p className="text-2xl font-semibold">No messages yet</p>
+                <p className="text-lg text-muted-foreground">
+                  Messages from your care team will appear here.
                 </p>
-                <p className="mt-1 text-lg">{m.preview}</p>
-                <p className="mt-1 text-base text-muted-foreground">{m.time}</p>
               </div>
-            ))}
+            ) : (
+              messages.map((m) => (
+                <div key={m.id} className="min-h-[72px] rounded-2xl bg-row px-5 py-4">
+                  <p className="text-xl font-semibold">
+                    {m.name}
+                    <span className="font-normal text-muted-foreground">, {m.role}</span>
+                  </p>
+                  <p className="mt-1 text-lg">{m.preview}</p>
+                  <p className="mt-1 text-base text-muted-foreground">{m.time}</p>
+                </div>
+              ))
+            )}
           </div>
         </section>
 
