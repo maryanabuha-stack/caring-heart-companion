@@ -4,7 +4,6 @@ import { PageShell } from "@/components/carenest/PageShell";
 import { ConfirmationBanner } from "@/components/carenest/ConfirmationBanner";
 import { MedicationCard } from "@/components/carenest/MedicationCard";
 import { useNow } from "@/hooks/use-now";
-import { AlertTriangle, Check, Clock, type LucideIcon } from "lucide-react";
 import { byPriority, medState, nowLabel } from "@/lib/med-time";
 
 export const Route = createFileRoute("/reminders")({
@@ -50,11 +49,10 @@ const initialReminders: Reminder[] = [
 const sections: {
   label: string;
   states: string[];
-  icon: LucideIcon;
 }[] = [
-  { label: "Needs attention", states: ["missed", "due"], icon: AlertTriangle },
-  { label: "Later today", states: ["upcoming"], icon: Clock },
-  { label: "Completed", states: ["taken"], icon: Check },
+  { label: "Needs attention", states: ["missed", "due"] },
+  { label: "Later today", states: ["upcoming"] },
+  { label: "Completed", states: ["taken"] },
 ];
 
 const tomorrow = [
@@ -120,13 +118,9 @@ function Reminders() {
           {sections.map((section) => {
             const sectionRows = rows.filter((r) => section.states.includes(r.state));
             if (sectionRows.length === 0) return null;
-            const SectionIcon = section.icon;
             return (
               <section key={section.label}>
-                <h2 className="mb-3 flex items-center gap-2 text-2xl font-semibold">
-                  <SectionIcon aria-hidden="true" strokeWidth={2} className="h-7 w-7 text-muted-foreground" />
-                  {section.label}
-                </h2>
+                <h2 className="mb-3 text-2xl font-semibold">{section.label}</h2>
                 <div className="flex flex-col gap-3 rounded-2xl bg-card p-5">
                   {sectionRows.map((item) => (
                     <MedicationCard
