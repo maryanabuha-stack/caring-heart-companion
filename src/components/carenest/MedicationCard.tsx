@@ -109,11 +109,7 @@ export function MedicationCard({
         interactive ? "cursor-pointer text-left hover:brightness-[0.98]" : ""
       }`}
     >
-      <span
-        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${badge[state]}`}
-      >
-        {icon}
-      </span>
+      <span className="flex h-10 w-10 shrink-0 items-center justify-center">{icon}</span>
 
 
       <div className="min-w-[180px] flex-1">
