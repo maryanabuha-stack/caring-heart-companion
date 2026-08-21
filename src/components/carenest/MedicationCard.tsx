@@ -62,7 +62,7 @@ export function MedicationCard({
         className="h-7 w-7 text-warning"
         strokeWidth={2.25}
         fill="currentColor"
-        stroke="hsl(var(--card))"
+        stroke="var(--card)"
       />
     ) : state === "taken" ? (
       <span className="flex h-7 w-7 items-center justify-center rounded-full bg-success">
