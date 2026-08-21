@@ -58,13 +58,13 @@ export function MedicationCard({
 
   const icon =
     state === "missed" ? (
-      <AlertTriangle className="h-7 w-7 text-warning" fill="currentColor" stroke="white" />
+      <AlertTriangle className="h-7 w-7 text-warning" strokeWidth={2} fill="currentColor" stroke="white" />
     ) : state === "taken" ? (
-      <CheckCircle2 className="h-7 w-7 text-success" fill="currentColor" stroke="white" />
+      <CheckCircle2 className="h-7 w-7 text-success" strokeWidth={2} fill="currentColor" stroke="white" />
     ) : state === "due" ? (
-      <Clock className="h-7 w-7 text-primary" />
+      <Clock className="h-7 w-7 text-primary" strokeWidth={2} />
     ) : (
-      <Clock className="h-7 w-7 text-muted-foreground" />
+      <Clock className="h-7 w-7 text-muted-foreground" strokeWidth={2} />
     );
 
   const label =
