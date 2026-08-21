@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Clock, AlertTriangle, CheckCircle2, Check, ChevronRight } from "lucide-react";
+import { Clock, AlertTriangle, CheckCircle2, Check, ChevronRight, Pill } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -118,7 +118,10 @@ export function MedicationCard({
         >
           {label}
         </p>
-        <p className="text-xl font-semibold">{name}</p>
+        <p className="flex items-center gap-2 text-xl font-semibold">
+          <Pill aria-hidden="true" strokeWidth={2} className="h-5 w-5 shrink-0 text-muted-foreground" />
+          {name}
+        </p>
         <p className="text-lg text-muted-foreground">
           {state === "taken" ? `Taken at ${takenAt ?? time}` : time}
         </p>
@@ -130,7 +133,7 @@ export function MedicationCard({
             <button
               type="button"
               onClick={onMarkTaken}
-              className={`min-h-[56px] rounded-2xl px-6 text-lg font-semibold transition-opacity hover:opacity-90 ${
+              className={`min-h-[56px] min-w-[236px] rounded-2xl px-6 text-lg font-semibold transition-opacity hover:opacity-90 ${
                 state === "missed"
                   ? "bg-warning-strong text-warning-strong-foreground"
                   : "bg-primary text-primary-foreground"
