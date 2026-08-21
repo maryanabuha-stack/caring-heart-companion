@@ -4,8 +4,8 @@ import { PageShell } from "@/components/carenest/PageShell";
 import { ConfirmationBanner } from "@/components/carenest/ConfirmationBanner";
 import { MedicationCard } from "@/components/carenest/MedicationCard";
 import { useNow } from "@/hooks/use-now";
-import { Sun, CloudSun, Moon, type LucideIcon } from "lucide-react";
-import { byPriority, medState, nowLabel } from "@/lib/med-time";
+import { Sun, CloudSun, Moon, Check, type LucideIcon } from "lucide-react";
+import { byPriority, medState, nowLabel, type MedTimeState } from "@/lib/med-time";
 
 export const Route = createFileRoute("/reminders")({
   head: () => ({
@@ -150,17 +150,26 @@ function Reminders() {
               <section key={section.label}>
                 <h2 className="mb-3 text-2xl font-semibold">{section.label}</h2>
                 <div className="flex flex-col gap-3 rounded-2xl bg-card p-5">
-                  {sectionRows.map((item) => (
-                    <MedicationCard
-                      key={item.id}
-                      state={item.state}
-                      name={item.name}
-                      time={item.time}
-                      takenAt={item.doneAt}
-                      onMarkTaken={() => markDone(item)}
-                      onUndo={() => undo(item)}
-                    />
-                  ))}
+                  {sectionRows.map((item) =>
+                    item.kind === "task" ? (
+                      <TaskRow
+                        key={item.id}
+                        label={item.name}
+                        completedAt={item.doneAt ?? null}
+                        onToggle={() => (item.doneAt ? undo(item) : markDone(item))}
+                      />
+                    ) : (
+                      <MedicationCard
+                        key={item.id}
+                        state={item.state}
+                        name={item.name}
+                        time={item.time}
+                        takenAt={item.doneAt}
+                        onMarkTaken={() => markDone(item)}
+                        onUndo={() => undo(item)}
+                      />
+                    ),
+                  )}
                 </div>
               </section>
             );
@@ -197,5 +206,38 @@ function Reminders() {
         </div>
       </section>
     </PageShell>
+  );
+}
+
+function TaskRow({
+  label,
+  completedAt,
+  onToggle,
+}: {
+  label: string;
+  completedAt: string | null;
+  onToggle: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      aria-pressed={!!completedAt}
+      onClick={onToggle}
+      className="flex min-h-[56px] w-full items-center gap-4 rounded-2xl bg-row px-5 py-3 text-left"
+    >
+      <span
+        className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border-2 ${
+          completedAt ? "border-success bg-success" : "border-muted-foreground/50 bg-card"
+        }`}
+      >
+        {completedAt && <Check className="h-5 w-5 text-card" strokeWidth={3} />}
+      </span>
+      <span className="flex flex-col">
+        <span className={`text-lg font-medium ${completedAt ? "line-through" : ""}`}>{label}</span>
+        {completedAt && (
+          <span className="text-base text-muted-foreground">Completed at {completedAt}</span>
+        )}
+      </span>
+    </button>
   );
 }
