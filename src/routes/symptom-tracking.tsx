@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import {
   CheckCircle2,
+  Info,
   Check,
   Frown,
   Meh,
