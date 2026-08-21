@@ -40,13 +40,14 @@ const CAREGIVER = "Sarah";
 const CAREGIVER_PHONE = "+1 (555) 014-2837";
 const CAREGIVER_TEL = "+15550142837";
 
-type Message = { id: string; name: string; role: string; preview: string; time: string };
+type Message = { id: string; name: string; role: string; preview: string; time: string; initials: string };
 
 const initialMessages: Message[] = [
   {
     id: "m1",
     name: "Sarah",
     role: "Caregiver",
+    initials: "SB",
     preview: "I'll drop by around 4pm with your prescription.",
     time: "Today, 10:15 AM",
   },
@@ -54,6 +55,7 @@ const initialMessages: Message[] = [
     id: "m2",
     name: "Dr. Bowman",
     role: "GP",
+    initials: "DB",
     preview: "Your blood pressure readings look good. Keep taking Lisinopril.",
     time: "Yesterday, 3:40 PM",
   },
@@ -61,6 +63,7 @@ const initialMessages: Message[] = [
     id: "m3",
     name: "Sarah",
     role: "Caregiver",
+    initials: "SB",
     preview: "Remember to drink water with your afternoon tablet.",
     time: "Monday, 1:05 PM",
   },
@@ -93,7 +96,7 @@ function Communication() {
     const trimmed = text.trim();
     if (!trimmed) return;
     setMessages((prev) => [
-      { id: `${Date.now()}`, name: "You", role: "to your care team", preview: trimmed, time: nowLabel() },
+      { id: `${Date.now()}`, name: "You", role: "to your care team", initials: "ME", preview: trimmed, time: nowLabel() },
       ...prev,
     ]);
     announce("Message sent");
@@ -165,13 +168,21 @@ function Communication() {
               </div>
             ) : (
               messages.map((m) => (
-                <div key={m.id} className="min-h-[72px] rounded-2xl bg-row px-5 py-4">
-                  <p className="text-xl font-semibold">
-                    {m.name}
-                    <span className="font-normal text-muted-foreground">, {m.role}</span>
-                  </p>
-                  <p className="mt-1 text-lg">{m.preview}</p>
-                  <p className="mt-1 text-base text-muted-foreground">{m.time}</p>
+                <div key={m.id} className="flex min-h-[72px] gap-4 rounded-2xl bg-row px-5 py-4">
+                  <span
+                    aria-hidden="true"
+                    className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-neutral-row text-base font-semibold text-muted-foreground"
+                  >
+                    {m.initials}
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xl font-semibold">
+                      {m.name}
+                      <span className="font-normal text-muted-foreground">, {m.role}</span>
+                    </p>
+                    <p className="mt-1 text-lg">{m.preview}</p>
+                    <p className="mt-1 text-base text-muted-foreground">{m.time}</p>
+                  </div>
                 </div>
               ))
             )}
@@ -179,26 +190,25 @@ function Communication() {
         </section>
 
         <section>
-          <h2 className="mb-3 text-2xl font-semibold">Quick replies</h2>
-          <div className="flex flex-wrap gap-3 rounded-2xl bg-card p-5">
-            {quickReplies.map((q) => (
-              <button
-                key={q}
-                type="button"
-                onClick={() => sendMessage(q)}
-                className="min-h-[56px] flex-1 rounded-2xl border-2 border-border bg-neutral-row px-6 text-lg font-medium transition-colors hover:bg-tint"
-              >
-                {q}
-              </button>
-            ))}
-          </div>
-        </section>
-
-        <section>
           <h2 className="mb-3 text-2xl font-semibold">
             <label htmlFor="compose">Write a message</label>
           </h2>
-          <div className="flex flex-col gap-3 rounded-2xl bg-card p-5 sm:flex-row">
+          <div className="rounded-2xl bg-card p-5">
+            <p className="mb-3 text-sm font-medium text-muted-foreground">Quick replies</p>
+            <div className="flex flex-wrap gap-3">
+              {quickReplies.map((q) => (
+                <button
+                  key={q}
+                  type="button"
+                  onClick={() => sendMessage(q)}
+                  className="min-h-[56px] flex-1 rounded-2xl border-2 border-border bg-neutral-row px-6 text-lg font-medium transition-colors hover:bg-tint"
+                >
+                  {q}
+                </button>
+              ))}
+            </div>
+
+            <div className="mt-5 flex flex-col gap-3 border-t border-border pt-5 sm:flex-row">
             <input
               id="compose"
               ref={composeRef}
@@ -219,6 +229,7 @@ function Communication() {
               <Send className="h-5 w-5" aria-hidden="true" />
               Send
             </button>
+            </div>
           </div>
         </section>
       </div>
