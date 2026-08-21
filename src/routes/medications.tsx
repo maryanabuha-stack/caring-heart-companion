@@ -163,7 +163,7 @@ function Medications() {
           return (
             <section key={group}>
               <h2 className="mb-3 flex items-center gap-2 text-2xl font-semibold">
-                <GroupIcon aria-hidden="true" className="h-[18px] w-[18px] text-muted-foreground" />
+                <GroupIcon aria-hidden="true" strokeWidth={2} className="h-7 w-7 text-muted-foreground" />
                 {group}
               </h2>
               <div className="flex flex-col gap-3 rounded-2xl bg-card p-5">
