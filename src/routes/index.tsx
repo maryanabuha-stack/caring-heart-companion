@@ -34,31 +34,15 @@ type Med = {
   id: string;
   name: string;
   time: string;
-  state: "upcoming" | "due" | "missed" | "taken";
   takenAt?: string | undefined;
 };
 
 const initialMeds: Med[] = [
-  { id: "1", name: "Lisinopril", time: "8:00 AM", state: "due" },
-  { id: "2", name: "Metformin", time: "12:30 PM", state: "missed" },
-  { id: "3", name: "Vitamin D", time: "9:00 AM", state: "taken", takenAt: "9:05 AM" },
-  { id: "4", name: "Atorvastatin", time: "6:00 PM", state: "upcoming" },
+  { id: "1", name: "Lisinopril", time: "8:00 AM" },
+  { id: "2", name: "Metformin", time: "12:30 PM" },
+  { id: "3", name: "Vitamin D", time: "9:00 AM", takenAt: "9:05 AM" },
+  { id: "4", name: "Atorvastatin", time: "6:00 PM" },
 ];
-
-const stateOrder: Record<Med["state"], number> = {
-  missed: 0,
-  due: 1,
-  upcoming: 2,
-  taken: 3,
-};
-
-function byPriority(a: Med, b: Med) {
-  return stateOrder[a.state] - stateOrder[b.state];
-}
-
-function nowLabel() {
-  return new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
-}
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -67,6 +51,7 @@ function Dashboard() {
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [waterDoneAt, setWaterDoneAt] = useState<string | null>(null);
   const [walkDoneAt, setWalkDoneAt] = useState<string | null>(null);
+  const now = useNow() ?? new Date(2000, 0, 1, 0, 0);
 
   useEffect(() => () => { if (timer.current) clearTimeout(timer.current); }, []);
 
@@ -78,21 +63,26 @@ function Dashboard() {
 
   const markTaken = (med: Med) => {
     setMeds((prev) =>
-      prev.map((m) => (m.id === med.id ? { ...m, state: "taken", takenAt: nowLabel() } : m)),
+      prev.map((m) => (m.id === med.id ? { ...m, takenAt: nowLabel() } : m)),
     );
     announce(`${med.name} marked as taken`);
   };
 
   const undo = (med: Med) => {
     setMeds((prev) =>
-      prev.map((m) => (m.id === med.id ? { ...m, state: "due", takenAt: undefined } : m)),
+      prev.map((m) => (m.id === med.id ? { ...m, takenAt: undefined } : m)),
     );
     announce(`${med.name} moved back to today's medications`);
   };
 
-  const taken = meds.filter((m) => m.state === "taken").length;
-  const total = meds.length;
-  const next = meds.find((m) => m.state === "due") ?? meds.find((m) => m.state === "missed");
+  const rows = meds
+    .map((m) => ({ ...m, state: medState(m.time, m.takenAt, now) }))
+    .sort(byPriority);
+
+  const taken = rows.filter((m) => m.state === "taken").length;
+  const total = rows.length;
+  const next = rows.find((m) => m.state === "due") ?? rows.find((m) => m.state === "missed");
+
 
   return (
     <PageShell>
