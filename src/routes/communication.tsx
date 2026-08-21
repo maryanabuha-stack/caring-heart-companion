@@ -103,7 +103,7 @@ function Communication() {
       strong: false,
     },
     {
-      label: "Message my doctor",
+      label: "Message care team",
       icon: MessageSquare,
       onClick: () => composeRef.current?.focus(),
       strong: false,
