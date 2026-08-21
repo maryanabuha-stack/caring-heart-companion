@@ -37,6 +37,8 @@ export const Route = createFileRoute("/communication")({
 });
 
 const CAREGIVER = "Sarah";
+const CAREGIVER_PHONE = "+1 (555) 014-2837";
+const CAREGIVER_TEL = "+15550142837";
 
 type Message = { id: string; name: string; role: string; preview: string; time: string };
 
@@ -75,6 +77,7 @@ function Communication() {
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [draft, setDraft] = useState("");
   const [confirmHelp, setConfirmHelp] = useState(false);
+  const [confirmCall, setConfirmCall] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const composeRef = useRef<HTMLInputElement | null>(null);
 
