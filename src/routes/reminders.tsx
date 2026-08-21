@@ -4,6 +4,7 @@ import { PageShell } from "@/components/carenest/PageShell";
 import { ConfirmationBanner } from "@/components/carenest/ConfirmationBanner";
 import { MedicationCard } from "@/components/carenest/MedicationCard";
 import { useNow } from "@/hooks/use-now";
+import { Sun, CloudSun, Moon, type LucideIcon } from "lucide-react";
 import { byPriority, medState, nowLabel } from "@/lib/med-time";
 
 export const Route = createFileRoute("/reminders")({
@@ -165,17 +166,29 @@ function Reminders() {
 
       <section className="mt-8">
         <h2 className="mb-4 text-2xl font-semibold">Tomorrow</h2>
-        <div className="rounded-2xl bg-card px-6 py-4">
-          <ul className="flex flex-col">
-            {tomorrow.map((item) => (
-              <li
-                key={`${item.name}-${item.time}`}
-                className="border-b border-border py-3 text-lg last:border-b-0"
-              >
-                {item.name} — {item.time}
-              </li>
-            ))}
-          </ul>
+        <div className="flex flex-col gap-8 rounded-2xl bg-card px-6 py-5">
+          {tomorrowGroups.map((group) => {
+            const GroupIcon = group.icon;
+            return (
+              <div key={group.label}>
+                <h3 className="mb-3 flex items-center gap-2 text-2xl font-semibold">
+                  <GroupIcon aria-hidden="true" strokeWidth={2} className="h-7 w-7 text-muted-foreground" />
+                  {group.label}
+                </h3>
+                <ul className="flex flex-col">
+                  {group.items.map((item) => (
+                    <li
+                      key={`${item.name}-${item.time}`}
+                      className="border-b border-border py-3 last:border-b-0"
+                    >
+                      <p className="text-lg font-semibold">{item.name}</p>
+                      <p className="text-[15px] text-muted-foreground">{item.time}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
         </div>
       </section>
     </PageShell>
