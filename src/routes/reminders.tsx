@@ -115,9 +115,12 @@ function Reminders() {
 
   const rows = items
     .map((i) => {
-      const state = medState(i.time, i.doneAt, now);
-      // Tasks never go to a "missed" state — they stay pending until done.
-      return { ...i, state: i.kind === "task" && state === "missed" ? ("due" as const) : state };
+      // Tasks are lightweight: pending or done only — no due/missed urgency states.
+      const state =
+        i.kind === "task"
+          ? ((i.doneAt ? "taken" : "upcoming") as const)
+          : medState(i.time, i.doneAt, now);
+      return { ...i, state };
     })
     .sort(byPriority);
 
