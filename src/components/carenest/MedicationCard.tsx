@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Clock, AlertTriangle, CheckCircle2, ChevronRight } from "lucide-react";
+import { Clock, AlertTriangle, CheckCircle2, Check, ChevronRight } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -58,9 +58,15 @@ export function MedicationCard({
 
   const icon =
     state === "missed" ? (
-      <AlertTriangle className="h-7 w-7 text-warning" strokeWidth={2} fill="currentColor" stroke="white" />
+      <AlertTriangle
+        className="h-7 w-7 text-warning [&_line]:hidden [&_path]:stroke-none [&_circle]:hidden"
+        fill="currentColor"
+        stroke="none"
+      />
     ) : state === "taken" ? (
-      <CheckCircle2 className="h-7 w-7 text-success" strokeWidth={2} fill="currentColor" stroke="white" />
+      <span className="flex h-7 w-7 items-center justify-center rounded-full bg-success">
+        <Check className="h-5 w-5 text-card" strokeWidth={3} />
+      </span>
     ) : state === "due" ? (
       <Clock className="h-7 w-7 text-primary" strokeWidth={2} />
     ) : (

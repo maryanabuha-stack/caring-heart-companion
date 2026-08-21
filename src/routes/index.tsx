@@ -45,6 +45,17 @@ const initialMeds: Med[] = [
   { id: "4", name: "Atorvastatin", time: "6:00 PM", state: "upcoming" },
 ];
 
+const stateOrder: Record<Med["state"], number> = {
+  missed: 0,
+  due: 1,
+  upcoming: 2,
+  taken: 3,
+};
+
+function byPriority(a: Med, b: Med) {
+  return stateOrder[a.state] - stateOrder[b.state];
+}
+
 function nowLabel() {
   return new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
 }
@@ -128,7 +139,7 @@ function Dashboard() {
         <section className="rounded-2xl bg-card px-6 py-5">
           <h2 className="text-2xl font-semibold">Medications today</h2>
           <div className="mt-4 flex flex-col gap-3">
-            {meds.map((med) => (
+            {[...meds].sort(byPriority).map((med) => (
               <MedicationCard
                 key={med.id}
                 state={med.state}
