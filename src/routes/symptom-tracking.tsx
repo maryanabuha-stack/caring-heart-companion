@@ -128,9 +128,9 @@ function SymptomTracking() {
       </p>
 
       {alreadyCheckedIn && (
-        <div className="mb-6 flex min-h-[64px] items-center gap-3 rounded-2xl bg-neutral-row px-5 py-4">
-          <Info className="h-6 w-6 shrink-0 text-muted-foreground" strokeWidth={2} aria-hidden="true" />
-          <p className="text-[17px] text-foreground">
+        <div className="mb-6 flex min-h-[64px] items-center gap-3 rounded-2xl bg-tint px-5 py-4">
+          <Info className="h-6 w-6 shrink-0 text-tint-foreground" strokeWidth={2} aria-hidden="true" />
+          <p className="text-[17px] text-tint-foreground">
             You already checked in today — here&apos;s what you shared. Feel free to update it.
           </p>
         </div>
