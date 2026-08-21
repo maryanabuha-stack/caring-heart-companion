@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Clock, AlertTriangle, CheckCircle2, Check, ChevronRight } from "lucide-react";
+import { Clock, AlarmClock, AlertTriangle, CheckCircle2, Check, ChevronRight } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -75,21 +75,14 @@ export function MedicationCard({
 
       </span>
     ) : state === "taken" ? (
-      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-success">
-        <Check className="h-4 w-4 text-card" strokeWidth={3} />
+      <span className="flex h-7 w-7 items-center justify-center rounded-full bg-success">
+        <Check className="h-5 w-5 text-card" strokeWidth={3} />
       </span>
     ) : state === "due" ? (
-      <Clock className="h-6 w-6 text-primary" strokeWidth={2} />
+      <AlarmClock className="h-7 w-7 text-primary" strokeWidth={2} />
     ) : (
-      <Clock className="h-6 w-6 text-muted-foreground" strokeWidth={2} />
+      <Clock className="h-7 w-7 text-muted-foreground" strokeWidth={2} />
     );
-
-  const badge: Record<Exclude<MedicationState, "empty">, string> = {
-    taken: "bg-success-badge",
-    missed: "bg-warning-badge",
-    due: "bg-info-badge",
-    upcoming: "bg-neutral-badge",
-  };
 
   const label =
     state === "missed" ? "Missed" : state === "taken" ? "Taken" : state === "due" ? "Next action" : "Next";
@@ -116,11 +109,7 @@ export function MedicationCard({
         interactive ? "cursor-pointer text-left hover:brightness-[0.98]" : ""
       }`}
     >
-      <span
-        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${badge[state]}`}
-      >
-        {icon}
-      </span>
+      <span className="flex h-10 w-10 shrink-0 items-center justify-center">{icon}</span>
 
 
       <div className="min-w-[180px] flex-1">
