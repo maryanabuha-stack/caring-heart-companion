@@ -20,7 +20,7 @@ export function AppSidebar() {
   const pathname = useRouterState({ select: (r) => r.location.pathname });
 
   return (
-    <aside className="flex w-[320px] shrink-0 flex-col bg-navy px-5 py-6 text-navy-foreground">
+    <aside className="sticky top-0 flex h-screen w-[320px] shrink-0 flex-col overflow-y-auto bg-navy px-5 py-6 text-navy-foreground">
       <div className="flex items-center gap-3 px-2 pb-8">
         <div className="flex h-11 w-11 items-center justify-center rounded-full bg-primary text-xl font-bold text-primary-foreground">
           C
