@@ -88,8 +88,8 @@ export function MedicationCard({
             },
           }
         : {})}
-      className={`flex min-h-[88px] flex-wrap items-center gap-4 rounded-2xl ${surface[state]} px-5 py-4 ${
-        interactive ? "cursor-pointer text-left transition-colors hover:brightness-[0.98]" : ""
+      className={`flex min-h-[88px] flex-wrap items-center gap-4 rounded-2xl ${surface[state]} px-5 py-4 transition-colors duration-300 ease-out ${
+        interactive ? "cursor-pointer text-left hover:brightness-[0.98]" : ""
       }`}
     >
       <span className="shrink-0">{icon}</span>
