@@ -116,9 +116,11 @@ function Reminders() {
   const rows = items
     .map((i) => {
       // Tasks are lightweight: pending or done only — no due/missed urgency states.
-      const state =
+      const state: MedTimeState =
         i.kind === "task"
-          ? ((i.doneAt ? "taken" : "upcoming") as const)
+          ? i.doneAt
+            ? "taken"
+            : "upcoming"
           : medState(i.time, i.doneAt, now);
       return { ...i, state };
     })
