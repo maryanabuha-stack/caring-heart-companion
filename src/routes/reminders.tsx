@@ -46,6 +46,12 @@ const initialReminders: Reminder[] = [
   { id: "m5", name: "Melatonin", time: "9:00 PM", kind: "medication" },
 ];
 
+const sections: { label: string; states: string[] }[] = [
+  { label: "Needs attention", states: ["missed", "due"] },
+  { label: "Later today", states: ["upcoming"] },
+  { label: "Completed", states: ["taken"] },
+];
+
 const tomorrow = [
   { name: "Lisinopril", time: "8:00 AM" },
   { name: "Vitamin D", time: "9:00 AM" },
