@@ -102,6 +102,10 @@ function Communication() {
     announce("Message sent");
   };
 
+  const VISIBLE_LIMIT = 5;
+  const visibleMessages = messages.slice(0, VISIBLE_LIMIT);
+  const hasEarlier = messages.length > VISIBLE_LIMIT;
+
   const tiles = [
     {
       label: "Call my caregiver",
@@ -167,7 +171,7 @@ function Communication() {
                 </p>
               </div>
             ) : (
-              messages.map((m) => (
+              visibleMessages.map((m) => (
                 <div key={m.id} className="flex min-h-[72px] gap-4 rounded-2xl bg-row px-5 py-4">
                   <span
                     aria-hidden="true"
@@ -185,6 +189,16 @@ function Communication() {
                   </div>
                 </div>
               ))
+            )}
+            {hasEarlier && (
+              <button
+                type="button"
+                // Placeholder: this is where earlier message history would load.
+                onClick={() => announce("Earlier messages will appear here")}
+                className="mt-1 self-center rounded-lg px-3 py-2 text-lg font-medium text-primary underline-offset-4 hover:underline"
+              >
+                View earlier messages
+              </button>
             )}
           </div>
         </section>
