@@ -46,6 +46,12 @@ const initialReminders: Reminder[] = [
   { id: "m5", name: "Melatonin", time: "9:00 PM", kind: "medication" },
 ];
 
+const sections: { label: string; states: string[] }[] = [
+  { label: "Needs attention", states: ["missed", "due"] },
+  { label: "Later today", states: ["upcoming"] },
+  { label: "Completed", states: ["taken"] },
+];
+
 const tomorrow = [
   { name: "Lisinopril", time: "8:00 AM" },
   { name: "Vitamin D", time: "9:00 AM" },
@@ -104,18 +110,30 @@ function Reminders() {
         {allDone ? (
           <MedicationCard state="empty" nextReminderTime={tomorrow[0]?.time ?? "8:00 AM"} />
         ) : (
-          <div className="flex flex-col gap-3">
-            {rows.map((item) => (
-              <MedicationCard
-                key={item.id}
-                state={item.state}
-                name={item.name}
-                time={item.time}
-                takenAt={item.doneAt}
-                onMarkTaken={() => markDone(item)}
-                onUndo={() => undo(item)}
-              />
-            ))}
+          <div className="flex flex-col">
+            {sections.map((section, sectionIndex) => {
+              const sectionRows = rows.filter((r) => section.states.includes(r.state));
+              if (sectionRows.length === 0) return null;
+              return (
+                <div key={section.label} className={sectionIndex === 0 ? "" : "mt-10"}>
+                  <p className="mb-3 text-sm font-medium text-muted-foreground">{section.label}</p>
+                  <div className="flex flex-col gap-6">
+                    {sectionRows.map((item) => (
+                      <MedicationCard
+                        key={item.id}
+                        state={item.state}
+                        name={item.name}
+                        time={item.time}
+                        takenAt={item.doneAt}
+                        onMarkTaken={() => markDone(item)}
+                        onUndo={() => undo(item)}
+                        className="border border-border shadow-sm"
+                      />
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         )}
       </section>
