@@ -106,37 +106,37 @@ function Reminders() {
 
       <ConfirmationBanner message={banner} />
 
-      <section className="rounded-2xl bg-card p-5">
-        {allDone ? (
+      {allDone ? (
+        <section className="rounded-2xl bg-card p-5">
           <MedicationCard state="empty" nextReminderTime={tomorrow[0]?.time ?? "8:00 AM"} />
-        ) : (
-          <div className="flex flex-col">
-            {sections.map((section, sectionIndex) => {
-              const sectionRows = rows.filter((r) => section.states.includes(r.state));
-              if (sectionRows.length === 0) return null;
-              return (
-                <div key={section.label} className={sectionIndex === 0 ? "" : "mt-10"}>
-                  <p className="mb-3 text-sm font-medium text-muted-foreground">{section.label}</p>
-                  <div className="flex flex-col gap-3">
-                    {sectionRows.map((item) => (
-                      <MedicationCard
-                        key={item.id}
-                        state={item.state}
-                        name={item.name}
-                        time={item.time}
-                        takenAt={item.doneAt}
-                        onMarkTaken={() => markDone(item)}
-                        onUndo={() => undo(item)}
-                        
-                      />
-                    ))}
-                  </div>
+        </section>
+      ) : (
+        <div className="flex flex-col gap-8">
+          {sections.map((section) => {
+            const sectionRows = rows.filter((r) => section.states.includes(r.state));
+            if (sectionRows.length === 0) return null;
+            return (
+              <section key={section.label}>
+                <p className="mb-3 text-sm font-medium text-muted-foreground">{section.label}</p>
+                <div className="flex flex-col gap-3 rounded-2xl bg-card p-5">
+                  {sectionRows.map((item) => (
+                    <MedicationCard
+                      key={item.id}
+                      state={item.state}
+                      name={item.name}
+                      time={item.time}
+                      takenAt={item.doneAt}
+                      onMarkTaken={() => markDone(item)}
+                      onUndo={() => undo(item)}
+                    />
+                  ))}
                 </div>
-              );
-            })}
-          </div>
-        )}
-      </section>
+              </section>
+            );
+          })}
+        </div>
+      )}
+
 
       <section className="mt-8">
         <h2 className="mb-4 text-2xl font-semibold">Tomorrow</h2>
