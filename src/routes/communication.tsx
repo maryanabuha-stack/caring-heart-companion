@@ -89,7 +89,7 @@ function Communication() {
     const trimmed = text.trim();
     if (!trimmed) return;
     setMessages((prev) => [
-      { id: `${Date.now()}`, name: "You", role: `to ${CAREGIVER}, Caregiver`, preview: trimmed, time: nowLabel() },
+      { id: `${Date.now()}`, name: "You", role: "to your care team", preview: trimmed, time: nowLabel() },
       ...prev,
     ]);
     announce("Message sent");
