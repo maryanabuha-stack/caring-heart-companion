@@ -1,7 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import {
-  CheckCircle2,
   Check,
   ChevronRight,
   Activity,
@@ -9,6 +8,7 @@ import {
 } from "lucide-react";
 import { MedicationCard } from "@/components/carenest/MedicationCard";
 import { PageShell } from "@/components/carenest/PageShell";
+import { ConfirmationBanner } from "@/components/carenest/ConfirmationBanner";
 import { useNow } from "@/hooks/use-now";
 import { byPriority, medState, nowLabel } from "@/lib/med-time";
 
@@ -95,14 +95,7 @@ function Dashboard() {
         </p>
       </header>
 
-      <div aria-live="polite" className="min-h-0">
-        {banner && (
-          <div className="mb-6 flex min-h-[64px] items-center gap-3 rounded-2xl bg-tint px-5 py-4">
-            <CheckCircle2 className="h-6 w-6 text-success" />
-            <p className="text-lg font-medium text-tint-foreground">{banner}</p>
-          </div>
-        )}
-      </div>
+      <ConfirmationBanner message={banner} />
 
       <div className="flex flex-col gap-6">
         {next && (

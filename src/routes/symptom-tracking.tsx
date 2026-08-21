@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import {
-  CheckCircle2,
   Info,
   Check,
   Frown,
@@ -11,6 +10,7 @@ import {
   Laugh,
 } from "lucide-react";
 import { PageShell } from "@/components/carenest/PageShell";
+import { ConfirmationBanner } from "@/components/carenest/ConfirmationBanner";
 
 export const Route = createFileRoute("/symptom-tracking")({
   head: () => ({
@@ -136,14 +136,7 @@ function SymptomTracking() {
         </div>
       )}
 
-      <div aria-live="polite" className="min-h-0">
-        {banner && (
-          <div className="mb-6 flex min-h-[64px] items-center gap-3 rounded-2xl bg-tint px-5 py-4">
-            <CheckCircle2 className="h-6 w-6 text-success" />
-            <p className="text-lg font-medium text-tint-foreground">{banner}</p>
-          </div>
-        )}
-      </div>
+      <ConfirmationBanner message={banner} />
 
       <div className="flex flex-col gap-8">
         <section>

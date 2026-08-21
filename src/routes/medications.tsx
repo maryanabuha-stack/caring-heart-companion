@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { CheckCircle2, Sun, CloudSun, Moon } from "lucide-react";
 import { PageShell } from "@/components/carenest/PageShell";
+import { ConfirmationBanner } from "@/components/carenest/ConfirmationBanner";
 import { MedicationCard } from "@/components/carenest/MedicationCard";
 import { MedicationDetailModal } from "@/components/carenest/MedicationDetailModal";
 import { useNow } from "@/hooks/use-now";
@@ -139,14 +140,7 @@ function Medications() {
         See your medications for today and mark them as taken. Tap any medication for more details.
       </p>
 
-      <div aria-live="polite" className="min-h-0">
-        {banner && (
-          <div className="mb-6 flex min-h-[64px] items-center gap-3 rounded-2xl bg-tint px-5 py-4">
-            <CheckCircle2 className="h-6 w-6 text-success" />
-            <p className="text-lg font-medium text-tint-foreground">{banner}</p>
-          </div>
-        )}
-      </div>
+      <ConfirmationBanner message={banner} />
 
       {allTaken && (
         <div className="mb-6 flex min-h-[64px] items-center gap-3 rounded-2xl bg-neutral-row px-5 py-4">
