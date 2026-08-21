@@ -131,7 +131,7 @@ function Dashboard() {
         <section className="rounded-2xl bg-card px-6 py-5">
           <h2 className="text-2xl font-semibold">Medications today</h2>
           <div className="mt-4 flex flex-col gap-3">
-            {[...meds].sort(byPriority).map((med) => (
+            {rows.map((med) => (
               <MedicationCard
                 key={med.id}
                 state={med.state}
