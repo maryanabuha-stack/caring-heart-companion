@@ -65,7 +65,7 @@ export function MedicationCard({
       />
     ) : state === "taken" ? (
       <span className="flex h-7 w-7 items-center justify-center rounded-full bg-success">
-        <Check className="h-5 w-5 text-success-foreground" strokeWidth={3} />
+        <Check className="h-5 w-5 text-card" strokeWidth={3} />
       </span>
     ) : state === "due" ? (
       <Clock className="h-7 w-7 text-primary" strokeWidth={2} />
