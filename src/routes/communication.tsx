@@ -120,7 +120,8 @@ function Communication() {
     <PageShell>
       <h1 className="text-3xl font-semibold">Contact your care team</h1>
       <p className="mb-6 mt-2 text-[15px] text-muted-foreground">
-        Call, message, or ask for help. Someone from your care team will get back to you.
+        Call, message, or ask for help. Your whole care team can see messages here, and someone
+        will get back to you.
       </p>
 
       <div aria-live="polite" className="min-h-0">
