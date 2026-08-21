@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { CheckCircle2, Phone, MessageSquare, HandHelping, Send } from "lucide-react";
+import { Phone, MessageSquare, HandHelping, Send } from "lucide-react";
 import { PageShell } from "@/components/carenest/PageShell";
 import { ConfirmationBanner } from "@/components/carenest/ConfirmationBanner";
 import {
