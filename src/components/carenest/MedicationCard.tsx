@@ -138,6 +138,7 @@ export function MedicationCard({
         {interactive && (
           <ChevronRight
             aria-hidden="true"
+            strokeWidth={2}
             className={`h-6 w-6 shrink-0 ${
               state === "missed" ? "text-warning-foreground/60" : "text-muted-foreground"
             }`}
