@@ -58,13 +58,13 @@ export function MedicationCard({
 
   const icon =
     state === "missed" ? (
-      <AlertTriangle className="h-7 w-7 text-warning" fill="currentColor" stroke="white" />
+      <AlertTriangle className="h-7 w-7 text-warning" strokeWidth={2} fill="currentColor" stroke="white" />
     ) : state === "taken" ? (
-      <CheckCircle2 className="h-7 w-7 text-success" fill="currentColor" stroke="white" />
+      <CheckCircle2 className="h-7 w-7 text-success" strokeWidth={2} fill="currentColor" stroke="white" />
     ) : state === "due" ? (
-      <Clock className="h-7 w-7 text-primary" />
+      <Clock className="h-7 w-7 text-primary" strokeWidth={2} />
     ) : (
-      <Clock className="h-7 w-7 text-muted-foreground" />
+      <Clock className="h-7 w-7 text-muted-foreground" strokeWidth={2} />
     );
 
   const label =
@@ -88,8 +88,8 @@ export function MedicationCard({
             },
           }
         : {})}
-      className={`flex min-h-[88px] flex-wrap items-center gap-4 rounded-2xl ${surface[state]} px-5 py-4 ${
-        interactive ? "cursor-pointer text-left transition-colors hover:brightness-[0.98]" : ""
+      className={`flex min-h-[88px] flex-wrap items-center gap-4 rounded-2xl ${surface[state]} px-5 py-4 transition-colors duration-300 ease-out ${
+        interactive ? "cursor-pointer text-left hover:brightness-[0.98]" : ""
       }`}
     >
       <span className="shrink-0">{icon}</span>
@@ -138,6 +138,7 @@ export function MedicationCard({
         {interactive && (
           <ChevronRight
             aria-hidden="true"
+            strokeWidth={2}
             className={`h-6 w-6 shrink-0 ${
               state === "missed" ? "text-warning-foreground/60" : "text-muted-foreground"
             }`}

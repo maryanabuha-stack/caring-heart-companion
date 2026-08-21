@@ -142,7 +142,7 @@ function Dashboard() {
           </div>
         </section>
 
-        <section className="rounded-2xl bg-card px-6 py-5">
+        <section className="mt-3 rounded-2xl bg-card px-6 py-5">
           <h2 className="text-2xl font-semibold">Daily tasks</h2>
           <div className="mt-4 flex flex-col gap-3">
             <TaskRow
@@ -167,7 +167,7 @@ function Dashboard() {
           </div>
         </section>
 
-        <section>
+        <section className="mt-3">
           <h2 className="mb-4 text-2xl font-semibold">Quick access</h2>
           <div className="grid grid-cols-2 gap-4">
             <QuickTile
