@@ -175,11 +175,11 @@ function Reminders() {
                   <GroupIcon aria-hidden="true" strokeWidth={2} className="h-7 w-7 text-muted-foreground" />
                   {group.label}
                 </h3>
-                <ul className="flex flex-col">
+                <ul className="flex flex-col gap-3">
                   {group.items.map((item) => (
                     <li
                       key={`${item.name}-${item.time}`}
-                      className="border-b border-border py-3 last:border-b-0"
+                      className="rounded-2xl bg-neutral-row px-5 py-4"
                     >
                       <p className="text-lg font-semibold">{item.name}</p>
                       <p className="text-[15px] text-muted-foreground">{item.time}</p>
