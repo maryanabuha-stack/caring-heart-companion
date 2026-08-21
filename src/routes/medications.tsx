@@ -103,7 +103,7 @@ const groupIcon: Record<Group, typeof Sun> = {
   Evening: Moon,
 };
 
-const stateOrder: Record<Med["state"], number> = {
+const stateOrder: Partial<Record<Med["state"], number>> = {
   missed: 0,
   due: 1,
   upcoming: 2,
