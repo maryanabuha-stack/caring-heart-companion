@@ -229,6 +229,7 @@ function Communication() {
               <Send className="h-5 w-5" aria-hidden="true" />
               Send
             </button>
+            </div>
           </div>
         </section>
       </div>
