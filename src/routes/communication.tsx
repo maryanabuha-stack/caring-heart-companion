@@ -242,6 +242,33 @@ function Communication() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      <AlertDialog open={confirmCall} onOpenChange={setConfirmCall}>
+        <AlertDialogContent className="rounded-2xl">
+          <AlertDialogHeader>
+            <AlertDialogTitle className="text-2xl">
+              Call {CAREGIVER} at {CAREGIVER_PHONE}?
+            </AlertDialogTitle>
+            <AlertDialogDescription className="text-lg">
+              This will open your phone app to start the call.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter className="gap-3">
+            <AlertDialogCancel className="min-h-[56px] rounded-2xl px-8 text-lg">Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              asChild
+              className="min-h-[56px] rounded-2xl bg-primary px-8 text-lg text-primary-foreground"
+            >
+              <a
+                href={`tel:${CAREGIVER_TEL}`}
+                onClick={() => announce(`Opening your phone to call ${CAREGIVER}`)}
+              >
+                Yes, call
+              </a>
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </PageShell>
   );
 }
