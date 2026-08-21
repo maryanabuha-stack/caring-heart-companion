@@ -103,7 +103,7 @@ function Communication() {
     {
       label: "Call my caregiver",
       icon: Phone,
-      onClick: () => announce(`Calling ${CAREGIVER}, your caregiver`),
+      onClick: () => setConfirmCall(true),
       strong: false,
     },
     {
