@@ -45,6 +45,17 @@ const initialMeds: Med[] = [
   { id: "4", name: "Atorvastatin", time: "6:00 PM", state: "upcoming" },
 ];
 
+const stateOrder: Record<Med["state"], number> = {
+  missed: 0,
+  due: 1,
+  upcoming: 2,
+  taken: 3,
+};
+
+function byPriority(a: Med, b: Med) {
+  return stateOrder[a.state] - stateOrder[b.state];
+}
+
 function nowLabel() {
   return new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
 }
