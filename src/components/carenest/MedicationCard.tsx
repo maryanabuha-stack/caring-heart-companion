@@ -67,21 +67,28 @@ export function MedicationCard({
         />
         <AlertTriangle
           aria-hidden="true"
-          className="absolute inset-0 h-7 w-7 text-card [&>path:first-of-type]:hidden"
+          className="absolute inset-0 h-7 w-7 text-warning-badge [&>path:first-of-type]:hidden"
           strokeWidth={2.5}
           fill="none"
           stroke="currentColor"
         />
       </span>
     ) : state === "taken" ? (
-      <span className="flex h-7 w-7 items-center justify-center rounded-full bg-success">
-        <Check className="h-5 w-5 text-card" strokeWidth={3} />
+      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-success">
+        <Check className="h-4 w-4 text-card" strokeWidth={3} />
       </span>
     ) : state === "due" ? (
-      <Clock className="h-7 w-7 text-primary" strokeWidth={2} />
+      <Clock className="h-6 w-6 text-primary" strokeWidth={2} />
     ) : (
-      <Clock className="h-7 w-7 text-muted-foreground" strokeWidth={2} />
+      <Clock className="h-6 w-6 text-muted-foreground" strokeWidth={2} />
     );
+
+  const badge: Record<Exclude<MedicationState, "empty">, string> = {
+    taken: "bg-success-badge",
+    missed: "bg-warning-badge",
+    due: "bg-info-badge",
+    upcoming: "bg-neutral-badge",
+  };
 
   const label =
     state === "missed" ? "Missed" : state === "taken" ? "Taken" : state === "due" ? "Next action" : "Next";
@@ -108,7 +115,12 @@ export function MedicationCard({
         interactive ? "cursor-pointer text-left hover:brightness-[0.98]" : ""
       }`}
     >
-      <span className="shrink-0">{icon}</span>
+      <span
+        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${badge[state]}`}
+      >
+        {icon}
+      </span>
+
 
       <div className="min-w-[180px] flex-1">
         <p
