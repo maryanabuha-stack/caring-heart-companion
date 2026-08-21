@@ -52,6 +52,12 @@ const symptoms = [
 
 type Entry = { day: string; mood: string; symptoms: string[] };
 
+type TodayCheckin = { date: string; mood: string; symptoms: string[]; note: string };
+
+const STORAGE_KEY = "carenest.symptom-checkin";
+
+const todayKey = () => new Date().toDateString();
+
 const initialEntries: Entry[] = [
   { day: "Yesterday", mood: "Good", symptoms: [] },
   { day: "Monday", mood: "Okay", symptoms: ["Headache", "Tired"] },
@@ -63,10 +69,32 @@ function SymptomTracking() {
   const [picked, setPicked] = useState<string[]>([]);
   const [note, setNote] = useState("");
   const [banner, setBanner] = useState<string | null>(null);
+  const [alreadyCheckedIn, setAlreadyCheckedIn] = useState(false);
   const [entries, setEntries] = useState<Entry[]>(initialEntries);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => () => { if (timer.current) clearTimeout(timer.current); }, []);
+
+  // Restore today's check-in (client only, SSR-safe)
+  useEffect(() => {
+    try {
+      const raw = window.localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      const saved = JSON.parse(raw) as TodayCheckin;
+      if (!saved || saved.date !== todayKey()) return;
+      setMood(saved.mood);
+      setPicked(saved.symptoms ?? []);
+      setNote(saved.note ?? "");
+      setAlreadyCheckedIn(true);
+      const moodLabel = moods.find((m) => m.id === saved.mood)?.label ?? "";
+      setEntries((prev) => [
+        { day: "Today", mood: moodLabel, symptoms: saved.symptoms ?? [] },
+        ...prev.filter((e) => e.day !== "Today"),
+      ]);
+    } catch {
+      /* ignore malformed storage */
+    }
+  }, []);
 
   const toggleSymptom = (s: string) =>
     setPicked((prev) => (prev.includes(s) ? prev.filter((x) => x !== s) : [...prev, s]));
@@ -77,6 +105,15 @@ function SymptomTracking() {
       { day: "Today", mood: moodLabel, symptoms: picked },
       ...prev.filter((e) => e.day !== "Today"),
     ]);
+    try {
+      window.localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify({ date: todayKey(), mood: mood ?? "", symptoms: picked, note }),
+      );
+    } catch {
+      /* storage unavailable */
+    }
+    setAlreadyCheckedIn(true);
     setBanner("Your check-in for today has been saved");
     if (timer.current) clearTimeout(timer.current);
     timer.current = setTimeout(() => setBanner(null), 3500);
