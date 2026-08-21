@@ -103,6 +103,17 @@ const groupIcon: Record<Group, typeof Sun> = {
   Evening: Moon,
 };
 
+const stateOrder: Record<Med["state"], number> = {
+  missed: 0,
+  due: 1,
+  upcoming: 2,
+  taken: 3,
+};
+
+function byPriority(a: Med, b: Med) {
+  return stateOrder[a.state] - stateOrder[b.state];
+}
+
 function nowLabel() {
   return new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
 }
@@ -163,7 +174,7 @@ function Medications() {
 
       <div className="flex flex-col gap-8">
         {groups.map((group) => {
-          const rows = meds.filter((m) => m.group === group);
+          const rows = meds.filter((m) => m.group === group).sort(byPriority);
           if (rows.length === 0) return null;
           const GroupIcon = groupIcon[group];
           return (
