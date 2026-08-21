@@ -4,7 +4,6 @@ import { PageShell } from "@/components/carenest/PageShell";
 import { ConfirmationBanner } from "@/components/carenest/ConfirmationBanner";
 import { MedicationCard } from "@/components/carenest/MedicationCard";
 import { useNow } from "@/hooks/use-now";
-import { AlertTriangle, Check, Clock, type LucideIcon } from "lucide-react";
 import { byPriority, medState, nowLabel } from "@/lib/med-time";
 
 export const Route = createFileRoute("/reminders")({
@@ -50,11 +49,10 @@ const initialReminders: Reminder[] = [
 const sections: {
   label: string;
   states: string[];
-  icon: LucideIcon;
 }[] = [
-  { label: "Needs attention", states: ["missed", "due"], icon: AlertTriangle },
-  { label: "Later today", states: ["upcoming"], icon: Clock },
-  { label: "Completed", states: ["taken"], icon: Check },
+  { label: "Needs attention", states: ["missed", "due"] },
+  { label: "Later today", states: ["upcoming"] },
+  { label: "Completed", states: ["taken"] },
 ];
 
 const tomorrow = [
