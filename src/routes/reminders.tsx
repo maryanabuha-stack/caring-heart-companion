@@ -104,18 +104,30 @@ function Reminders() {
         {allDone ? (
           <MedicationCard state="empty" nextReminderTime={tomorrow[0]?.time ?? "8:00 AM"} />
         ) : (
-          <div className="flex flex-col gap-3">
-            {rows.map((item) => (
-              <MedicationCard
-                key={item.id}
-                state={item.state}
-                name={item.name}
-                time={item.time}
-                takenAt={item.doneAt}
-                onMarkTaken={() => markDone(item)}
-                onUndo={() => undo(item)}
-              />
-            ))}
+          <div className="flex flex-col">
+            {sections.map((section, sectionIndex) => {
+              const sectionRows = rows.filter((r) => section.states.includes(r.state));
+              if (sectionRows.length === 0) return null;
+              return (
+                <div key={section.label} className={sectionIndex === 0 ? "" : "mt-10"}>
+                  <p className="mb-3 text-sm font-medium text-muted-foreground">{section.label}</p>
+                  <div className="flex flex-col gap-6">
+                    {sectionRows.map((item) => (
+                      <MedicationCard
+                        key={item.id}
+                        state={item.state}
+                        name={item.name}
+                        time={item.time}
+                        takenAt={item.doneAt}
+                        onMarkTaken={() => markDone(item)}
+                        onUndo={() => undo(item)}
+                        className="border border-border shadow-sm"
+                      />
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         )}
       </section>
