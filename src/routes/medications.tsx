@@ -111,7 +111,7 @@ const stateOrder: Partial<Record<Med["state"], number>> = {
 };
 
 function byPriority(a: Med, b: Med) {
-  return stateOrder[a.state] - stateOrder[b.state];
+  return (stateOrder[a.state] ?? 9) - (stateOrder[b.state] ?? 9);
 }
 
 function nowLabel() {
