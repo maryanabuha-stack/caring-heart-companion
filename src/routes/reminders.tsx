@@ -4,6 +4,7 @@ import { PageShell } from "@/components/carenest/PageShell";
 import { ConfirmationBanner } from "@/components/carenest/ConfirmationBanner";
 import { MedicationCard } from "@/components/carenest/MedicationCard";
 import { useNow } from "@/hooks/use-now";
+import { Sun, CloudSun, Moon, type LucideIcon } from "lucide-react";
 import { byPriority, medState, nowLabel } from "@/lib/med-time";
 
 export const Route = createFileRoute("/reminders")({
@@ -55,16 +56,38 @@ const sections: {
   { label: "Completed", states: ["taken"] },
 ];
 
-const tomorrow = [
-  { name: "Lisinopril", time: "8:00 AM" },
-  { name: "Vitamin D", time: "9:00 AM" },
-  { name: "Drink a glass of water", time: "9:30 AM" },
-  { name: "Metformin", time: "12:30 PM" },
-  { name: "Aspirin", time: "2:00 PM" },
-  { name: "Take a short walk", time: "3:00 PM" },
-  { name: "Atorvastatin", time: "6:00 PM" },
-  { name: "Melatonin", time: "9:00 PM" },
+type TomorrowGroup = { label: string; icon: LucideIcon; items: { name: string; time: string }[] };
+
+const tomorrowGroups: TomorrowGroup[] = [
+  {
+    label: "Morning",
+    icon: Sun,
+    items: [
+      { name: "Lisinopril", time: "8:00 AM" },
+      { name: "Vitamin D", time: "9:00 AM" },
+      { name: "Drink a glass of water", time: "9:30 AM" },
+    ],
+  },
+  {
+    label: "Afternoon",
+    icon: CloudSun,
+    items: [
+      { name: "Metformin", time: "12:30 PM" },
+      { name: "Aspirin", time: "2:00 PM" },
+      { name: "Take a short walk", time: "3:00 PM" },
+    ],
+  },
+  {
+    label: "Evening",
+    icon: Moon,
+    items: [
+      { name: "Atorvastatin", time: "6:00 PM" },
+      { name: "Melatonin", time: "9:00 PM" },
+    ],
+  },
 ];
+
+const tomorrow = tomorrowGroups.flatMap((g) => g.items);
 
 function Reminders() {
   const [items, setItems] = useState<Reminder[]>(initialReminders);
@@ -143,17 +166,29 @@ function Reminders() {
 
       <section className="mt-8">
         <h2 className="mb-4 text-2xl font-semibold">Tomorrow</h2>
-        <div className="rounded-2xl bg-card px-6 py-4">
-          <ul className="flex flex-col">
-            {tomorrow.map((item) => (
-              <li
-                key={`${item.name}-${item.time}`}
-                className="border-b border-border py-3 text-lg last:border-b-0"
-              >
-                {item.name} — {item.time}
-              </li>
-            ))}
-          </ul>
+        <div className="flex flex-col gap-8 rounded-2xl bg-card px-6 py-5">
+          {tomorrowGroups.map((group) => {
+            const GroupIcon = group.icon;
+            return (
+              <div key={group.label}>
+                <h3 className="mb-3 flex items-center gap-2 text-2xl font-semibold">
+                  <GroupIcon aria-hidden="true" strokeWidth={2} className="h-7 w-7 text-muted-foreground" />
+                  {group.label}
+                </h3>
+                <ul className="flex flex-col">
+                  {group.items.map((item) => (
+                    <li
+                      key={`${item.name}-${item.time}`}
+                      className="border-b border-border py-3 last:border-b-0"
+                    >
+                      <p className="text-lg font-semibold">{item.name}</p>
+                      <p className="text-[15px] text-muted-foreground">{item.time}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
         </div>
       </section>
     </PageShell>
