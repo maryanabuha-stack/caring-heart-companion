@@ -120,13 +120,9 @@ function Reminders() {
           {sections.map((section) => {
             const sectionRows = rows.filter((r) => section.states.includes(r.state));
             if (sectionRows.length === 0) return null;
-            const SectionIcon = section.icon;
             return (
               <section key={section.label}>
-                <h2 className="mb-3 flex items-center gap-2 text-2xl font-semibold">
-                  <SectionIcon aria-hidden="true" strokeWidth={2} className="h-7 w-7 text-muted-foreground" />
-                  {section.label}
-                </h2>
+                <h2 className="mb-3 text-2xl font-semibold">{section.label}</h2>
                 <div className="flex flex-col gap-3 rounded-2xl bg-card p-5">
                   {sectionRows.map((item) => (
                     <MedicationCard
