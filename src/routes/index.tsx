@@ -85,9 +85,7 @@ function Dashboard() {
   const total = rows.length;
 
   const next =
-    rows.find((m) => m.state === "due") ??
-    rows.find((m) => m.state === "missed") ??
-    rows.find((m) => m.state === "upcoming");
+    rows.find((m) => m.state === "due") ?? rows.find((m) => m.state === "upcoming");
   const primaryId = next?.id;
 
   const tomorrowFirst = [...meds]
