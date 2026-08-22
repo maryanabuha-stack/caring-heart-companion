@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { Phone, MessageSquare, HandHelping, Send } from "lucide-react";
+import { Phone, MessageSquare, HandHelping, Send, ArrowRight } from "lucide-react";
 import { PageShell } from "@/components/carenest/PageShell";
 import { ConfirmationBanner } from "@/components/carenest/ConfirmationBanner";
 import {
@@ -109,21 +109,28 @@ function Communication() {
   const tiles = [
     {
       label: "Call my caregiver",
+      subtitle: "Speak with someone right away.",
       icon: Phone,
+      iconBg: "bg-[#E7EDFB]",
+      iconColor: "text-primary",
       onClick: () => setConfirmCall(true),
-      strong: false,
+      variant: "default" as const,
     },
     {
       label: "Message care team",
+      subtitle: "Send a message to your care team.",
       icon: MessageSquare,
+      iconBg: "bg-[#E3F4E6]",
+      iconColor: "text-[#2F7A3A]",
       onClick: () => composeRef.current?.focus(),
-      strong: false,
+      variant: "default" as const,
     },
     {
       label: "Request help now",
+      subtitle: "Get assistance from your care team.",
       icon: HandHelping,
       onClick: () => setConfirmHelp(true),
-      strong: true,
+      variant: "strong" as const,
     },
   ];
 
@@ -146,14 +153,36 @@ function Communication() {
                 key={t.label}
                 type="button"
                 onClick={t.onClick}
-                className={`flex min-h-[132px] flex-col items-start justify-between gap-4 rounded-2xl border-2 p-5 text-left text-xl font-semibold transition-colors ${
-                  t.strong
+                className={`relative flex min-h-[132px] flex-col items-start justify-between gap-3 rounded-[14px] border-2 p-5 text-left transition-colors ${
+                  t.variant === "strong"
                     ? "border-primary bg-primary text-primary-foreground hover:opacity-90"
                     : "border-border bg-card text-foreground hover:bg-tint"
                 }`}
               >
-                <t.icon className="h-9 w-9 shrink-0" aria-hidden="true" />
-                <span>{t.label}</span>
+                <div className="flex w-full items-start justify-between">
+                  {t.variant === "strong" ? (
+                    <t.icon className="h-7 w-7 shrink-0 text-white" aria-hidden="true" />
+                  ) : (
+                    <span
+                      className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${t.iconBg}`}
+                    >
+                      <t.icon className={`h-5 w-5 ${t.iconColor}`} aria-hidden="true" />
+                    </span>
+                  )}
+                  {t.variant === "strong" && (
+                    <ArrowRight className="h-5 w-5 shrink-0 text-white" aria-hidden="true" />
+                  )}
+                </div>
+                <div className="flex flex-col gap-1">
+                  <span className="text-xl font-semibold">{t.label}</span>
+                  <span
+                    className={`text-[15px] leading-snug ${
+                      t.variant === "strong" ? "text-white/90" : "text-muted-foreground"
+                    }`}
+                  >
+                    {t.subtitle}
+                  </span>
+                </div>
               </button>
             ))}
           </div>
