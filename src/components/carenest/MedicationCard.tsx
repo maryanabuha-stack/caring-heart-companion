@@ -26,10 +26,10 @@ export type MedicationCardProps = {
 };
 
 const surface: Record<MedicationState, string> = {
-  upcoming: "bg-neutral-row",
+  upcoming: "bg-card",
   due: "bg-row",
   missed: "bg-warning-surface",
-  taken: "bg-row",
+  taken: "bg-card",
   empty: "bg-row",
 };
 
