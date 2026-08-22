@@ -108,7 +108,7 @@ function Dashboard() {
           </section>
         )}
 
-        <section className="rounded-lg bg-card px-6 py-5">
+        <section className="rounded-lg border border-border/60 bg-card/60 px-6 py-5">
           <h2 className="text-2xl font-semibold">Today&apos;s progress</h2>
           <p className="mt-2 text-lg">
             {taken} of {total} medications taken today
