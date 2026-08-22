@@ -157,7 +157,7 @@ export function MedicationCard({
             <button
               type="button"
               onClick={() => setConfirmOpen(true)}
-              className="flex min-h-[56px] items-center rounded-lg border-2 border-primary-border bg-transparent px-6 text-lg font-semibold text-primary-strong transition-colors hover:bg-icon-due"
+              className="flex min-h-[56px] items-center rounded-lg bg-transparent px-6 text-lg font-semibold text-primary-strong underline-offset-4 transition-colors hover:underline"
             >
               Undo
             </button>
