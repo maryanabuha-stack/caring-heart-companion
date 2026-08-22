@@ -4,7 +4,16 @@ import { PageShell } from "@/components/carenest/PageShell";
 import { ConfirmationBanner } from "@/components/carenest/ConfirmationBanner";
 import { MedicationCard } from "@/components/carenest/MedicationCard";
 import { useNow } from "@/hooks/use-now";
-import { Sun, CloudSun, Moon, Check, Pill, GlassWater, Footprints, type LucideIcon } from "lucide-react";
+import {
+  Sun,
+  CloudSun,
+  Moon,
+  Check,
+  Pill,
+  GlassWater,
+  Footprints,
+  type LucideIcon,
+} from "lucide-react";
 import { byPriority, medState, nowLabel, type MedTimeState } from "@/lib/med-time";
 
 export const Route = createFileRoute("/reminders")({
@@ -39,13 +48,56 @@ type Reminder = {
 };
 
 const initialReminders: Reminder[] = [
-  { id: "m1", name: "Lisinopril", time: "8:00 AM", kind: "medication", detail: "Take 1 tablet (10 mg) with food in the morning." },
-  { id: "t1", name: "Drink a glass of water", time: "9:30 AM", kind: "task", detail: "Drink one full glass of water." },
-  { id: "m2", name: "Vitamin D", time: "9:00 AM", kind: "medication", detail: "Take 1 softgel (1,000 IU) with breakfast.", doneAt: "9:05 AM" },
-  { id: "m3", name: "Metformin", time: "12:30 PM", kind: "medication", detail: "Take 1 tablet (500 mg) with lunch." },
-  { id: "t2", name: "Take a short walk", time: "3:00 PM", kind: "task", detail: "Take a 10-minute walk at a comfortable pace." },
-  { id: "m4", name: "Atorvastatin", time: "6:00 PM", kind: "medication", detail: "Take 1 tablet (20 mg) in the evening." },
-  { id: "m5", name: "Melatonin", time: "9:00 PM", kind: "medication", detail: "Take 1 tablet (3 mg) 30 minutes before bed." },
+  {
+    id: "m1",
+    name: "Lisinopril",
+    time: "8:00 AM",
+    kind: "medication",
+    detail: "Take 1 tablet (10 mg) with food in the morning.",
+  },
+  {
+    id: "t1",
+    name: "Drink a glass of water",
+    time: "9:30 AM",
+    kind: "task",
+    detail: "Drink one full glass of water.",
+  },
+  {
+    id: "m2",
+    name: "Vitamin D",
+    time: "9:00 AM",
+    kind: "medication",
+    detail: "Take 1 softgel (1,000 IU) with breakfast.",
+    doneAt: "9:05 AM",
+  },
+  {
+    id: "m3",
+    name: "Metformin",
+    time: "12:30 PM",
+    kind: "medication",
+    detail: "Take 1 tablet (500 mg) with lunch.",
+  },
+  {
+    id: "t2",
+    name: "Take a short walk",
+    time: "3:00 PM",
+    kind: "task",
+    detail: "Take a 10-minute walk at a comfortable pace.",
+  },
+  {
+    id: "m4",
+    name: "Atorvastatin",
+    time: "6:00 PM",
+    kind: "medication",
+    detail: "Take 1 tablet (20 mg) in the evening.",
+  },
+  {
+    id: "m5",
+    name: "Melatonin",
+    time: "9:00 PM",
+    kind: "medication",
+    detail: "Take 1 tablet (3 mg) 30 minutes before bed.",
+  },
 ];
 
 const sections: {
@@ -119,7 +171,12 @@ function Reminders() {
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const now = useNow() ?? new Date(2000, 0, 1, 0, 0);
 
-  useEffect(() => () => { if (timer.current) clearTimeout(timer.current); }, []);
+  useEffect(
+    () => () => {
+      if (timer.current) clearTimeout(timer.current);
+    },
+    [],
+  );
 
   const announce = (message: string) => {
     setBanner(message);
@@ -150,16 +207,13 @@ function Reminders() {
     .map((i) => {
       // Tasks are lightweight: pending or done only — no due/missed urgency states.
       const state: MedTimeState =
-        i.kind === "task"
-          ? i.doneAt
-            ? "taken"
-            : "upcoming"
-          : medState(i.time, i.doneAt, now);
+        i.kind === "task" ? (i.doneAt ? "taken" : "upcoming") : medState(i.time, i.doneAt, now);
       return { ...i, state };
     })
     .sort(byPriority);
 
-  const primaryId = (rows.find((r) => r.state === "due") ?? rows.find((r) => r.state === "missed"))?.id;
+  const primaryId = (rows.find((r) => r.state === "due") ?? rows.find((r) => r.state === "missed"))
+    ?.id;
 
   const allDone = rows.every((r) => r.state === "taken");
 
@@ -233,7 +287,11 @@ function Reminders() {
             return (
               <div key={group.label}>
                 <h3 className="mb-3 flex items-center gap-2 text-2xl font-semibold">
-                  <GroupIcon aria-hidden="true" strokeWidth={2} className="h-7 w-7 text-muted-foreground" />
+                  <GroupIcon
+                    aria-hidden="true"
+                    strokeWidth={2}
+                    className="h-7 w-7 text-muted-foreground"
+                  />
                   {group.label}
                 </h3>
                 <ul className="flex flex-col gap-3">
@@ -300,7 +358,9 @@ function TaskRow({
             {completedAt && <Check className="h-5 w-5 text-card" strokeWidth={3} />}
           </span>
           <span className="flex flex-col">
-            <span className={`text-lg font-medium ${completedAt ? "line-through" : ""}`}>{label}</span>
+            <span className={`text-lg font-medium ${completedAt ? "line-through" : ""}`}>
+              {label}
+            </span>
             {completedAt && (
               <span className="text-base text-muted-foreground">Completed at {completedAt}</span>
             )}

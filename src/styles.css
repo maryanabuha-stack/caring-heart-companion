@@ -75,15 +75,15 @@
 
 :root {
   --radius: 0.625rem;
-  --background: #FAFAFC;
+  --background: #fafafc;
   --foreground: oklch(0.24 0.03 258);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.24 0.03 258);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.24 0.03 258);
-  --primary: #1449DE;
+  --primary: #1449de;
   --primary-foreground: oklch(0.99 0 0);
-  --primary-strong: #1449DE;
+  --primary-strong: #1449de;
   --primary-border: oklch(0.74 0.07 258);
   --secondary: oklch(0.95 0.008 250);
   --secondary-foreground: oklch(0.28 0.03 258);
@@ -95,50 +95,48 @@
   --destructive-foreground: oklch(0.99 0 0);
   --border: oklch(0.93 0.006 250);
   --input: oklch(0.93 0.006 250);
-  --ring: #1449DE;
+  --ring: #1449de;
 
   --navy: oklch(0.26 0.05 262);
   --navy-foreground: oklch(0.97 0.005 250);
   --navy-muted: oklch(0.72 0.03 255);
-  --tint: #E7EDFB;
-  --tint-foreground: #1449DE;
+  --tint: #e7edfb;
+  --tint-foreground: #1449de;
   --row: oklch(0.97 0.01 250);
   --neutral-row: oklch(0.965 0.003 250);
-  --success: #1449DE;
-  --success-badge: #E7EDFB;
+  --success: #1449de;
+  --success-badge: #e7edfb;
   --warning: oklch(0.66 0.1 75);
   --warning-badge: oklch(0.94 0.045 80);
   --info-badge: oklch(0.94 0.03 255);
   --neutral-badge: oklch(0.93 0.005 250);
   --warning-surface: oklch(0.96 0.03 85);
-  --warning-foreground: #B14319;
+  --warning-foreground: #b14319;
   --warning-border: oklch(0.78 0.07 70);
-  --warning-strong: #B14319;
+  --warning-strong: #b14319;
   --warning-strong-foreground: oklch(0.99 0 0);
 
-  --icon-due: #E7EDFB;
-  --icon-missed: #FDEBD9;
-  --icon-taken: #E7EDFB;
+  --icon-due: #e7edfb;
+  --icon-missed: #fdebd9;
+  --icon-taken: #e7edfb;
   --icon-neutral: oklch(0.955 0.004 250);
 
-  --reminder-medication: #E7EDFB;
-  --reminder-water: #E0F2F1;
-  --reminder-walk: #E7F5E9;
-  --reminder-medication-icon: #1449DE;
-  --reminder-water-icon: #2D9CDB;
-  --reminder-walk-icon: #16A34A;
+  --reminder-medication: #e7edfb;
+  --reminder-water: #e0f2f1;
+  --reminder-walk: #e7f5e9;
+  --reminder-medication-icon: #1449de;
+  --reminder-water-icon: #2d9cdb;
+  --reminder-walk-icon: #16a34a;
 
   --divider: oklch(0.93 0.005 250);
 
   --sidebar: oklch(0.995 0 0);
   --sidebar-foreground: oklch(0.3 0.025 258);
   --sidebar-muted: oklch(0.5 0.015 256);
-  --sidebar-active: #E7EDFB;
-  --sidebar-active-foreground: #1449DE;
+  --sidebar-active: #e7edfb;
+  --sidebar-active-foreground: #1449de;
   --sidebar-border: oklch(0.93 0.005 250);
 }
-
-
 
 @layer base {
   * {
