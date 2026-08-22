@@ -108,23 +108,25 @@ function Dashboard() {
           </section>
         )}
 
-        <section className="rounded-2xl bg-card px-6 py-5">
+        <section className="rounded-lg bg-card px-6 py-5">
           <h2 className="text-2xl font-semibold">Today&apos;s progress</h2>
           <p className="mt-2 text-lg">
             {taken} of {total} medications taken today
           </p>
-          <div className="mt-3 h-4 w-full overflow-hidden rounded-full bg-muted">
-            <div
-              className="h-full rounded-full bg-primary transition-all"
-              style={{ width: `${(taken / total) * 100}%` }}
-            />
+          <div className="mt-3 flex gap-2" aria-hidden="true">
+            {rows.map((med, i) => (
+              <span
+                key={med.id}
+                className={`h-4 flex-1 rounded-[4px] ${i < taken ? "bg-primary" : "bg-muted"}`}
+              />
+            ))}
           </div>
           <p className="mt-2 text-base text-muted-foreground">Keep it up</p>
         </section>
 
-        <section className="rounded-2xl bg-card px-6 py-5">
-          <h2 className="text-2xl font-semibold">Medications today</h2>
-          <div className="mt-2 flex flex-col divide-y divide-divider">
+        <section>
+          <h2 className="mb-3 text-2xl font-semibold">Medications today</h2>
+          <div className="flex flex-col divide-y divide-divider">
             {rows.map((med) => (
               <MedicationCard
                 key={med.id}
@@ -139,6 +141,7 @@ function Dashboard() {
             ))}
           </div>
         </section>
+
 
         <section className="mt-3 rounded-2xl bg-card px-6 py-5">
           <h2 className="text-2xl font-semibold">Daily tasks</h2>

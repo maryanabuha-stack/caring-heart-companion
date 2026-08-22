@@ -55,7 +55,7 @@ export function MedicationCard({
   time = "",
   takenAt,
   nextReminderTime,
-  emphasis = "secondary",
+  emphasis: _emphasis = "secondary",
   onMarkTaken,
   onUndo,
   onOpenDetail,
