@@ -81,6 +81,9 @@ function Dashboard() {
     .map((m) => ({ ...m, state: medState(m.time, m.takenAt, now) }))
     .sort(byPriority);
 
+  const taken = rows.filter((m) => m.state === "taken").length;
+  const total = rows.length;
+
   const next =
     rows.find((m) => m.state === "due") ??
     rows.find((m) => m.state === "missed") ??
