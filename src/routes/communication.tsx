@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { Phone, MessageSquare, HandHelping, Send, ArrowRight } from "lucide-react";
+import { Phone, MessageSquare, HandHelping, Send } from "lucide-react";
 import { PageShell } from "@/components/carenest/PageShell";
 import { ConfirmationBanner } from "@/components/carenest/ConfirmationBanner";
 import {
@@ -109,7 +109,7 @@ function Communication() {
   const tiles = [
     {
       label: "Call my caregiver",
-      subtitle: "Speak with someone right away.",
+      subtitle: "Talk to your caregiver by phone.",
       icon: Phone,
       iconBg: "bg-[#E7EDFB]",
       iconColor: "text-primary",
@@ -118,7 +118,7 @@ function Communication() {
     },
     {
       label: "Message care team",
-      subtitle: "Send a message to your care team.",
+      subtitle: "Send a quick message anytime.",
       icon: MessageSquare,
       iconBg: "bg-[#E3F4E6]",
       iconColor: "text-[#2F7A3A]",
@@ -127,7 +127,7 @@ function Communication() {
     },
     {
       label: "Request help now",
-      subtitle: "Get assistance from your care team.",
+      subtitle: "Ask your care team for help.",
       icon: HandHelping,
       onClick: () => setConfirmHelp(true),
       variant: "strong" as const,
@@ -153,10 +153,10 @@ function Communication() {
                 key={t.label}
                 type="button"
                 onClick={t.onClick}
-                className={`relative flex min-h-[132px] flex-col items-start justify-between gap-3 rounded-[14px] border-2 p-5 text-left transition-colors ${
+                className={`flex min-h-[132px] flex-col items-start justify-between gap-3 rounded-[14px] border-2 p-5 text-left ${
                   t.variant === "strong"
-                    ? "border-primary bg-primary text-primary-foreground hover:opacity-90"
-                    : "border-border bg-card text-foreground hover:bg-tint"
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "border-border bg-card text-foreground"
                 }`}
               >
                 <div className="flex w-full items-start justify-between">
@@ -169,12 +169,9 @@ function Communication() {
                       <t.icon className={`h-5 w-5 ${t.iconColor}`} aria-hidden="true" />
                     </span>
                   )}
-                  {t.variant === "strong" && (
-                    <ArrowRight className="h-5 w-5 shrink-0 text-white" aria-hidden="true" />
-                  )}
                 </div>
                 <div className="flex flex-col gap-1">
-                  <span className="text-xl font-semibold">{t.label}</span>
+                  <span className="text-lg font-semibold">{t.label}</span>
                   <span
                     className={`text-[15px] leading-snug ${
                       t.variant === "strong" ? "text-white/90" : "text-muted-foreground"
