@@ -115,7 +115,7 @@ export function MedicationCard({
             },
           }
         : {})}
-      className={`flex min-h-[88px] flex-wrap items-center gap-4 bg-card px-2 py-4 transition-colors duration-200 ease-out ${
+      className={`flex min-h-[88px] flex-wrap items-center gap-4 px-2 py-4 transition-colors duration-200 ease-out ${
         interactive ? "cursor-pointer text-left hover:bg-muted/50" : ""
       } ${className}`}
     >

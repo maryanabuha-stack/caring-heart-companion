@@ -143,9 +143,10 @@ function Dashboard() {
         </section>
 
 
-        <section className="mt-3 rounded-2xl bg-card px-6 py-5">
-          <h2 className="text-2xl font-semibold">Daily tasks</h2>
-          <div className="mt-2 flex flex-col divide-y divide-divider">
+        <section className="mt-3">
+          <h2 className="mb-3 text-2xl font-semibold">Daily tasks</h2>
+          <div className="flex flex-col divide-y divide-divider">
+
             <TaskRow
               label="Drink a glass of water"
               completedAt={waterDoneAt}
@@ -159,7 +160,8 @@ function Dashboard() {
             <button
               type="button"
               onClick={() => navigate({ to: "/symptom-tracking" })}
-              className="flex min-h-[88px] w-full items-center gap-4 bg-card px-2 py-4 text-left"
+              className="flex min-h-[88px] w-full items-center gap-4 px-2 py-4 text-left"
+
             >
               <span className="flex-1 text-lg font-medium">Log how you&apos;re feeling today</span>
               <span className="text-base text-muted-foreground">Open Symptom Tracking</span>
