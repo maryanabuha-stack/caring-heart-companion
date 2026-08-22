@@ -13,7 +13,6 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as CommunicationRouteImport } from './routes/communication'
 import { Route as MedicationsRouteImport } from './routes/medications'
 import { Route as RemindersRouteImport } from './routes/reminders'
-import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SymptomTrackingRouteImport } from './routes/symptom-tracking'
 
 const IndexRoute = IndexRouteImport.update({
@@ -36,11 +35,6 @@ const RemindersRoute = RemindersRouteImport.update({
   path: '/reminders',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SettingsRoute = SettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const SymptomTrackingRoute = SymptomTrackingRouteImport.update({
   id: '/symptom-tracking',
   path: '/symptom-tracking',
@@ -52,7 +46,6 @@ export interface FileRoutesByFullPath {
   '/communication': typeof CommunicationRoute
   '/medications': typeof MedicationsRoute
   '/reminders': typeof RemindersRoute
-  '/settings': typeof SettingsRoute
   '/symptom-tracking': typeof SymptomTrackingRoute
 }
 export interface FileRoutesByTo {
@@ -60,7 +53,6 @@ export interface FileRoutesByTo {
   '/communication': typeof CommunicationRoute
   '/medications': typeof MedicationsRoute
   '/reminders': typeof RemindersRoute
-  '/settings': typeof SettingsRoute
   '/symptom-tracking': typeof SymptomTrackingRoute
 }
 export interface FileRoutesById {
@@ -69,33 +61,21 @@ export interface FileRoutesById {
   '/communication': typeof CommunicationRoute
   '/medications': typeof MedicationsRoute
   '/reminders': typeof RemindersRoute
-  '/settings': typeof SettingsRoute
   '/symptom-tracking': typeof SymptomTrackingRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
-    | '/communication'
-    | '/medications'
-    | '/reminders'
-    | '/settings'
-    | '/symptom-tracking'
+    '/' | '/communication' | '/medications' | '/reminders' | '/symptom-tracking'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
-    | '/communication'
-    | '/medications'
-    | '/reminders'
-    | '/settings'
-    | '/symptom-tracking'
+    '/' | '/communication' | '/medications' | '/reminders' | '/symptom-tracking'
   id:
     | '__root__'
     | '/'
     | '/communication'
     | '/medications'
     | '/reminders'
-    | '/settings'
     | '/symptom-tracking'
   fileRoutesById: FileRoutesById
 }
@@ -104,7 +84,6 @@ export interface RootRouteChildren {
   CommunicationRoute: typeof CommunicationRoute
   MedicationsRoute: typeof MedicationsRoute
   RemindersRoute: typeof RemindersRoute
-  SettingsRoute: typeof SettingsRoute
   SymptomTrackingRoute: typeof SymptomTrackingRoute
 }
 
@@ -138,13 +117,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RemindersRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/settings': {
-      id: '/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof SettingsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/symptom-tracking': {
       id: '/symptom-tracking'
       path: '/symptom-tracking'
@@ -160,7 +132,6 @@ const rootRouteChildren: RootRouteChildren = {
   CommunicationRoute: CommunicationRoute,
   MedicationsRoute: MedicationsRoute,
   RemindersRoute: RemindersRoute,
-  SettingsRoute: SettingsRoute,
   SymptomTrackingRoute: SymptomTrackingRoute,
 }
 export const routeTree = rootRouteImport
