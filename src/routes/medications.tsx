@@ -42,7 +42,6 @@ const initialMeds: Med[] = [
     dosage: "10mg · 1 tablet",
     schedule: "Once a day, in the morning · 8:00 AM",
     purpose: "Helps keep your blood pressure at a healthy level.",
-    allergyNote: "No known allergy conflicts.",
     time: "8:00 AM",
   },
   {
@@ -52,7 +51,6 @@ const initialMeds: Med[] = [
     dosage: "1000 IU · 1 capsule",
     schedule: "Once a day, with breakfast · 9:00 AM",
     purpose: "Supports strong bones and general wellbeing.",
-    allergyNote: "No known allergy conflicts.",
     time: "9:00 AM",
     takenAt: "9:05 AM",
   },
@@ -63,7 +61,6 @@ const initialMeds: Med[] = [
     dosage: "500mg · 1 tablet",
     schedule: "Twice a day, with food · 12:30 PM",
     purpose: "Helps control blood sugar levels.",
-    allergyNote: "No known allergy conflicts.",
     time: "12:30 PM",
   },
   {
@@ -73,8 +70,6 @@ const initialMeds: Med[] = [
     dosage: "81mg · 1 tablet",
     schedule: "Once a day, after lunch · 2:00 PM",
     purpose: "Helps protect your heart.",
-    allergyNote: "Avoid if you are allergic to aspirin or ibuprofen. Tell your doctor about any rash or wheezing.",
-    allergyConflict: true,
     time: "2:00 PM",
   },
   {
@@ -84,7 +79,6 @@ const initialMeds: Med[] = [
     dosage: "20mg · 1 tablet",
     schedule: "Once a day, in the evening · 6:00 PM",
     purpose: "Helps keep your cholesterol under control.",
-    allergyNote: "No known allergy conflicts. Avoid grapefruit juice with this tablet.",
     time: "6:00 PM",
   },
   {
@@ -94,7 +88,6 @@ const initialMeds: Med[] = [
     dosage: "3mg · 1 tablet",
     schedule: "Once a day, before bed · 9:00 PM",
     purpose: "Helps you fall asleep more easily.",
-    allergyNote: "No known allergy conflicts.",
     time: "9:00 PM",
   },
 ];

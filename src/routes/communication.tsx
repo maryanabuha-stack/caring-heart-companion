@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { Phone, MessageSquare, HandHelping, Send, CalendarDays } from "lucide-react";
+import { Phone, MessageSquare, HandHelping, Send } from "lucide-react";
 import { PageShell } from "@/components/carenest/PageShell";
 import { ConfirmationBanner } from "@/components/carenest/ConfirmationBanner";
 import {
@@ -68,12 +68,6 @@ const initialMessages: Message[] = [
     time: "Monday, 1:05 PM",
   },
 ];
-
-const appointment: { doctor: string; specialty: string; when: string } | null = {
-  doctor: "Dr. Bowman",
-  specialty: "General practice · Elm Street Clinic",
-  when: "Thursday, 27 August · 10:30 AM",
-};
 
 const quickReplies = ["I'm okay", "I have a question", "I need help"] as const;
 
@@ -144,28 +138,6 @@ function Communication() {
       <ConfirmationBanner message={banner} />
 
       <div className="flex flex-col gap-8">
-        <section>
-          <h2 className="mb-3 text-2xl font-semibold">Upcoming appointment</h2>
-          <div className="rounded-2xl bg-card p-5">
-            {appointment ? (
-              <div className="flex min-h-[72px] items-center gap-4 rounded-2xl bg-neutral-row px-5 py-4">
-                <CalendarDays
-                  className="h-7 w-7 shrink-0 text-muted-foreground"
-                  strokeWidth={2}
-                  aria-hidden="true"
-                />
-                <div className="min-w-0">
-                  <p className="text-xl font-semibold">{appointment.doctor}</p>
-                  <p className="mt-1 text-lg">{appointment.when}</p>
-                  <p className="mt-1 text-base text-muted-foreground">{appointment.specialty}</p>
-                </div>
-              </div>
-            ) : (
-              <p className="text-lg text-muted-foreground">No upcoming appointments scheduled.</p>
-            )}
-          </div>
-        </section>
-
         <section>
           <h2 className="sr-only">Quick actions</h2>
           <div className="grid gap-4 sm:grid-cols-3">
