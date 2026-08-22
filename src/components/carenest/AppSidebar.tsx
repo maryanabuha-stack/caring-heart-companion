@@ -29,31 +29,29 @@ export function AppSidebar() {
         collapsed ? "w-[104px]" : "w-[320px]"
       }`}
     >
-      <div className={`flex items-center gap-3 pb-4 ${collapsed ? "justify-center" : "px-2"}`}>
+      <div className={`flex items-center gap-3 pb-6 ${collapsed ? "flex-col justify-center" : "px-2"}`}>
         <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary text-xl font-bold text-primary-foreground">
           C
         </div>
         {!collapsed && <span className="text-2xl font-semibold">CareNest</span>}
+        <button
+          type="button"
+          onClick={() => setCollapsed((v) => !v)}
+          aria-expanded={!collapsed}
+          aria-label={collapsed ? "Expand menu" : "Collapse menu"}
+          title={collapsed ? "Expand menu" : "Collapse menu"}
+          className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-sidebar-muted transition-colors hover:bg-sidebar-active hover:text-sidebar-active-foreground ${
+            collapsed ? "" : "ml-auto"
+          }`}
+        >
+          {collapsed ? (
+            <PanelLeftOpen className="h-6 w-6" />
+          ) : (
+            <PanelLeftClose className="h-6 w-6" />
+          )}
+        </button>
       </div>
 
-      <button
-        type="button"
-        onClick={() => setCollapsed((v) => !v)}
-        aria-expanded={!collapsed}
-        aria-label={collapsed ? "Expand menu" : "Collapse menu"}
-        className={`mb-4 flex min-h-[56px] items-center gap-3 rounded-2xl border-2 border-sidebar-border px-4 text-lg font-medium text-sidebar-foreground transition-colors hover:bg-sidebar-active ${
-          collapsed ? "justify-center" : ""
-        }`}
-      >
-        {collapsed ? (
-          <PanelLeftOpen className="h-6 w-6 shrink-0" />
-        ) : (
-          <>
-            <PanelLeftClose className="h-6 w-6 shrink-0" />
-            <span className="whitespace-nowrap">Collapse menu</span>
-          </>
-        )}
-      </button>
 
       <nav className="flex flex-col gap-2">
         {items.map((item) => {
