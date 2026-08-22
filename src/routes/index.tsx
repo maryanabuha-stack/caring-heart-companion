@@ -10,7 +10,7 @@ import { MedicationCard } from "@/components/carenest/MedicationCard";
 import { PageShell } from "@/components/carenest/PageShell";
 import { ConfirmationBanner } from "@/components/carenest/ConfirmationBanner";
 import { useNow } from "@/hooks/use-now";
-import { byPriority, medState, nowLabel } from "@/lib/med-time";
+import { byPriority, medState, nowLabel, parseTimeLabel } from "@/lib/med-time";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -83,8 +83,13 @@ function Dashboard() {
 
   const taken = rows.filter((m) => m.state === "taken").length;
   const total = rows.length;
-  const next = rows.find((m) => m.state === "due") ?? rows.find((m) => m.state === "missed");
-  const primaryId = next?.id;
+
+  const next = rows.find((m) => m.state === "due") ?? rows.find((m) => m.state === "upcoming");
+  const primaryId =
+    (rows.find((m) => m.state === "due") ?? rows.find((m) => m.state === "missed"))?.id;
+
+  const tomorrowFirst = [...meds]
+    .sort((a, b) => (parseTimeLabel(a.time) ?? 0) - (parseTimeLabel(b.time) ?? 0))[0]?.time;
 
 
   return (
@@ -99,7 +104,7 @@ function Dashboard() {
       <ConfirmationBanner message={banner} />
 
       <div className="flex flex-col gap-6">
-        {next && (
+        {next ? (
           <section className="flex flex-wrap items-center gap-4 rounded-2xl bg-tint px-6 py-5">
             <div className="min-w-[180px] flex-1">
               <p className="text-base font-normal text-tint-foreground">Next medication</p>
@@ -114,6 +119,8 @@ function Dashboard() {
               Mark as taken
             </button>
           </section>
+        ) : (
+          <MedicationCard state="empty" nextReminderTime={tomorrowFirst} />
         )}
 
         <section className="rounded-lg border border-border/60 bg-card/60 px-6 py-5">
