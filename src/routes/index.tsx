@@ -90,7 +90,7 @@ function Dashboard() {
   return (
     <PageShell>
       <header className="mb-6">
-        <h1 className="text-3xl font-semibold">Good afternoon, Margaret</h1>
+        <h1 className="text-3xl font-medium">Good afternoon, Margaret</h1>
         <p className="mt-1 text-lg text-muted-foreground">
           Here is what matters today.
         </p>
@@ -108,7 +108,7 @@ function Dashboard() {
           </section>
         )}
 
-        <section className="rounded-lg bg-card px-6 py-5">
+        <section className="rounded-lg border border-border/60 bg-card/60 px-6 py-5">
           <h2 className="text-2xl font-semibold">Today&apos;s progress</h2>
           <p className="mt-2 text-lg">
             {taken} of {total} medications taken today

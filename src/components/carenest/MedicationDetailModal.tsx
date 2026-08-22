@@ -73,7 +73,7 @@ export function MedicationDetailModal({
             <button
               type="button"
               onClick={() => setConfirmOpen(true)}
-              className="flex min-h-[56px] w-full items-center justify-center rounded-2xl bg-row text-lg font-medium text-primary underline-offset-4 hover:underline"
+              className="flex min-h-[56px] w-full items-center justify-center rounded-lg bg-transparent text-lg font-medium text-primary underline-offset-4 hover:underline"
             >
               Undo
             </button>

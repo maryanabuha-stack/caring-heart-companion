@@ -122,7 +122,7 @@ function SymptomTracking() {
 
   return (
     <PageShell>
-      <h1 className="text-3xl font-semibold">How are you feeling today?</h1>
+      <h1 className="text-3xl font-medium">How are you feeling today?</h1>
       <p className="mb-6 mt-2 text-[15px] text-muted-foreground">
         Choose how you feel, add details if you&apos;d like, and save. It only takes a moment.
       </p>
