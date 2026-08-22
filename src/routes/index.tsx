@@ -154,7 +154,7 @@ function Dashboard() {
             <button
               type="button"
               onClick={() => navigate({ to: "/symptom-tracking" })}
-              className="flex min-h-[56px] w-full items-center gap-4 rounded-2xl bg-row px-5 py-3 text-left"
+              className="flex min-h-[56px] w-full items-center gap-4 rounded-2xl bg-card px-5 py-3 text-left"
             >
               <span className="flex-1 text-lg font-medium">Log how you&apos;re feeling today</span>
               <span className="text-base text-muted-foreground">Open Symptom Tracking</span>
@@ -197,7 +197,7 @@ function TaskRow({
       type="button"
       aria-pressed={!!completedAt}
       onClick={onToggle}
-      className="flex min-h-[56px] w-full items-center gap-4 rounded-2xl bg-row px-5 py-3 text-left"
+      className="flex min-h-[56px] w-full items-center gap-4 rounded-2xl bg-card px-5 py-3 text-left"
     >
       <span
         className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border-2 ${
