@@ -61,7 +61,7 @@ export function AppSidebar() {
               key={item.url}
               to={item.url}
               title={collapsed ? item.title : undefined}
-              className={`flex min-h-[56px] items-center gap-4 rounded-2xl border-l-4 px-4 text-left text-lg font-medium transition-colors ${
+              className={`flex min-h-[56px] items-center gap-4 rounded-lg border-l-4 px-4 text-left text-lg font-medium transition-colors ${
                 collapsed ? "justify-center" : ""
               } ${
                 active
@@ -79,7 +79,7 @@ export function AppSidebar() {
       <div className="mt-auto">
         <button
           type="button"
-          className={`flex min-h-[56px] w-full items-center gap-4 rounded-2xl px-4 text-left transition-colors hover:bg-sidebar-active/60 ${
+          className={`flex min-h-[56px] w-full items-center gap-4 rounded-lg px-4 text-left transition-colors hover:bg-sidebar-active/60 ${
             collapsed ? "justify-center" : ""
           }`}
         >
