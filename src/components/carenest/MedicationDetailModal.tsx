@@ -80,8 +80,16 @@ export function MedicationDetailModal({
           ) : (
             <button
               type="button"
-              onClick={onMarkTaken}
-              className="min-h-[56px] w-full rounded-[14px] bg-primary text-lg font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+              disabled={med.state === "upcoming"}
+              aria-disabled={med.state === "upcoming"}
+              onClick={med.state === "upcoming" ? undefined : onMarkTaken}
+              className={`min-h-[56px] w-full rounded-[14px] text-lg font-semibold transition-colors ${
+                med.state === "missed"
+                  ? "bg-warning-strong text-warning-strong-foreground hover:opacity-90"
+                  : med.state === "due"
+                    ? "bg-primary text-primary-foreground hover:opacity-90"
+                    : "cursor-not-allowed bg-muted text-muted-foreground"
+              }`}
             >
               {med.state === "missed" ? "Mark as taken now" : "Mark as taken"}
             </button>

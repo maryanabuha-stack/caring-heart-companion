@@ -105,7 +105,7 @@ export function MedicationCard({
             },
           }
         : {})}
-      className={`flex min-h-[88px] flex-wrap items-center gap-4 px-2 py-4 transition-colors duration-200 ease-out ${
+      className={`flex min-h-[104px] flex-wrap items-center gap-4 px-2 py-6 transition-colors duration-200 ease-out ${
         interactive ? "cursor-pointer text-left hover:bg-muted/50" : ""
       } ${className}`}
     >
@@ -129,13 +129,15 @@ export function MedicationCard({
           {(state === "due" || state === "missed" || state === "upcoming") && (
             <button
               type="button"
-              onClick={onMarkTaken}
+              disabled={state === "upcoming"}
+              aria-disabled={state === "upcoming"}
+              onClick={state === "upcoming" ? undefined : onMarkTaken}
               className={`min-h-[56px] rounded-[14px] px-6 text-lg font-semibold transition-colors ${
                 state === "missed"
                   ? "bg-warning-strong text-warning-strong-foreground hover:opacity-90"
                   : state === "due"
                     ? "bg-primary text-primary-foreground hover:opacity-90"
-                    : "bg-muted text-muted-foreground hover:bg-secondary"
+                    : "cursor-not-allowed bg-muted text-muted-foreground"
               }`}
             >
               Mark as taken

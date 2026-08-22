@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import {
   Home,
@@ -23,6 +23,18 @@ export function AppSidebar() {
   const pathname = useRouterState({ select: (r) => r.location.pathname });
   const [collapsed, setCollapsed] = useState(false);
 
+  // Restore the user's collapse choice so it survives navigation and reloads.
+  useEffect(() => {
+    if (localStorage.getItem("carenest.sidebar.collapsed") === "1") setCollapsed(true);
+  }, []);
+
+  const toggleCollapsed = () =>
+    setCollapsed((v) => {
+      const next = !v;
+      localStorage.setItem("carenest.sidebar.collapsed", next ? "1" : "0");
+      return next;
+    });
+
   return (
     <aside
       className={`sticky top-0 flex h-screen shrink-0 flex-col overflow-y-auto border-r border-sidebar-border bg-sidebar px-4 py-6 text-sidebar-foreground transition-[width] duration-200 ${
@@ -36,7 +48,7 @@ export function AppSidebar() {
         {!collapsed && <span className="text-2xl font-semibold">CareNest</span>}
         <button
           type="button"
-          onClick={() => setCollapsed((v) => !v)}
+          onClick={toggleCollapsed}
           aria-expanded={!collapsed}
           aria-label={collapsed ? "Expand menu" : "Collapse menu"}
           title={collapsed ? "Expand menu" : "Collapse menu"}
