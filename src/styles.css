@@ -56,6 +56,12 @@
   --color-icon-missed: var(--icon-missed);
   --color-icon-taken: var(--icon-taken);
   --color-icon-neutral: var(--icon-neutral);
+  --color-reminder-medication: var(--reminder-medication);
+  --color-reminder-water: var(--reminder-water);
+  --color-reminder-walk: var(--reminder-walk);
+  --color-reminder-medication-icon: var(--reminder-medication-icon);
+  --color-reminder-water-icon: var(--reminder-water-icon);
+  --color-reminder-walk-icon: var(--reminder-walk-icon);
   --color-divider: var(--divider);
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
