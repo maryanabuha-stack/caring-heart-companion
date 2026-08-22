@@ -70,6 +70,13 @@
   --color-sidebar-active-foreground: var(--sidebar-active-foreground);
   --color-sidebar-border: var(--sidebar-border);
 
+  --color-emergency-bg: var(--emergency-bg);
+  --color-emergency-text: var(--emergency-text);
+  --color-emergency-button: var(--emergency-button);
+  --color-emergency-button-hover: var(--emergency-button-hover);
+  --color-emergency-button-foreground: var(--emergency-button-foreground);
+
+
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
 }
 
@@ -136,6 +143,13 @@
   --sidebar-active: #e7edfb;
   --sidebar-active-foreground: #1449de;
   --sidebar-border: oklch(0.93 0.005 250);
+
+  --emergency-bg: oklch(0.96 0.03 25);
+  --emergency-text: #dc2626;
+  --emergency-button: #dc2626;
+  --emergency-button-hover: #b91c1c;
+  --emergency-button-foreground: oklch(0.99 0 0);
+
 }
 
 @layer base {
