@@ -19,18 +19,34 @@ export type MedicationCardProps = {
   time?: string;
   takenAt?: string | undefined;
   nextReminderTime?: string | undefined;
+  /** "primary" renders the single filled call-to-action; everything else is outline. */
+  emphasis?: "primary" | "secondary";
   onMarkTaken?: () => void;
   onUndo?: () => void;
   onOpenDetail?: () => void;
   className?: string;
 };
 
-const surface: Record<MedicationState, string> = {
-  upcoming: "bg-neutral-row",
-  due: "bg-row",
-  missed: "bg-warning-surface",
-  taken: "bg-neutral-row",
-  empty: "bg-row",
+/** Soft tinted circle behind the status icon. */
+const iconSurface: Record<Exclude<MedicationState, "empty">, string> = {
+  upcoming: "bg-icon-neutral",
+  due: "bg-icon-due",
+  missed: "bg-icon-missed",
+  taken: "bg-icon-taken",
+};
+
+const statusLabel: Record<Exclude<MedicationState, "empty">, string> = {
+  upcoming: "Upcoming",
+  due: "Due now",
+  missed: "Missed",
+  taken: "Taken",
+};
+
+const statusText: Record<Exclude<MedicationState, "empty">, string> = {
+  upcoming: "text-muted-foreground",
+  due: "text-primary-strong",
+  missed: "text-warning-foreground",
+  taken: "text-success",
 };
 
 export function MedicationCard({
@@ -39,6 +55,7 @@ export function MedicationCard({
   time = "",
   takenAt,
   nextReminderTime,
+  emphasis = "secondary",
   onMarkTaken,
   onUndo,
   onOpenDetail,
@@ -48,7 +65,7 @@ export function MedicationCard({
 
   if (state === "empty") {
     return (
-      <div className={`flex flex-col items-center gap-3 rounded-2xl ${surface.empty} px-6 py-10 text-center`}>
+      <div className="flex flex-col items-center gap-3 px-6 py-10 text-center">
         <CheckCircle2 className="h-14 w-14 text-success" />
         <p className="text-2xl font-semibold">All done for today</p>
         <p className="text-lg text-muted-foreground">
@@ -60,34 +77,19 @@ export function MedicationCard({
 
   const icon =
     state === "missed" ? (
-      <span className="relative flex h-7 w-7 items-center justify-center">
-        <AlertTriangle
-          className="h-7 w-7 text-warning"
-          strokeWidth={2}
-          fill="currentColor"
-          stroke="currentColor"
-        />
-        <AlertTriangle
-          aria-hidden="true"
-          className="absolute inset-0 h-7 w-7 text-card [&>path:first-of-type]:hidden"
-          strokeWidth={2.5}
-          fill="none"
-          stroke="currentColor"
-        />
-
-      </span>
+      <AlertTriangle
+        className="h-6 w-6 text-warning-foreground"
+        strokeWidth={2}
+        fill="currentColor"
+        stroke="currentColor"
+      />
     ) : state === "taken" ? (
-      <span className="flex h-7 w-7 items-center justify-center rounded-full bg-success">
-        <Check className="h-5 w-5 text-card" strokeWidth={3} />
-      </span>
+      <Check className="h-6 w-6 text-success" strokeWidth={3} />
     ) : state === "due" ? (
-      <AlarmClock className="h-7 w-7 text-primary" strokeWidth={2} />
+      <AlarmClock className="h-6 w-6 text-primary-strong" strokeWidth={2} />
     ) : (
-      <Clock className="h-7 w-7 text-muted-foreground" strokeWidth={2} />
+      <Clock className="h-6 w-6 text-muted-foreground" strokeWidth={2} />
     );
-
-  const label =
-    state === "missed" ? "Missed" : state === "taken" ? "Taken" : state === "due" ? "Next action" : "Next";
 
   const interactive = Boolean(onOpenDetail);
 
@@ -107,37 +109,37 @@ export function MedicationCard({
             },
           }
         : {})}
-      className={`flex min-h-[88px] flex-wrap items-center gap-4 rounded-2xl ${surface[state]} px-5 py-4 transition-colors duration-300 ease-out ${
-        interactive ? "cursor-pointer text-left hover:brightness-[0.98]" : ""
+      className={`flex min-h-[88px] flex-wrap items-center gap-4 bg-card px-2 py-4 transition-colors duration-200 ease-out ${
+        interactive ? "cursor-pointer text-left hover:bg-muted/50" : ""
       } ${className}`}
     >
-      <span className="flex h-10 w-10 shrink-0 items-center justify-center">{icon}</span>
-
+      <span
+        className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full ${iconSurface[state]}`}
+      >
+        {icon}
+      </span>
 
       <div className="min-w-[180px] flex-1">
-        <p
-          className={`text-base font-medium ${
-            state === "missed" ? "text-warning-foreground" : "text-muted-foreground"
-          }`}
-        >
-          {label}
-        </p>
         <p className="text-xl font-semibold">{name}</p>
         <p className="text-lg text-muted-foreground">
           {state === "taken" ? `Taken at ${takenAt ?? time}` : time}
+          <span aria-hidden="true"> • </span>
+          <span className={`font-medium ${statusText[state]}`}>{statusLabel[state]}</span>
         </p>
       </div>
 
       <div className="ml-auto flex items-center gap-3">
         <div onClick={(e) => e.stopPropagation()}>
-          {(state === "due" || state === "missed") && (
+          {(state === "due" || state === "missed" || state === "upcoming") && (
             <button
               type="button"
               onClick={onMarkTaken}
-              className={`min-h-[56px] rounded-2xl px-6 text-lg font-semibold transition-opacity hover:opacity-90 ${
-                state === "missed"
-                  ? "bg-warning-strong text-warning-strong-foreground"
-                  : "bg-primary text-primary-foreground"
+              className={`min-h-[56px] rounded-2xl px-6 text-lg font-semibold transition-colors ${
+                emphasis === "primary"
+                  ? "bg-primary text-primary-foreground hover:opacity-90"
+                  : state === "missed"
+                    ? "border-2 border-warning-border bg-transparent text-warning-foreground hover:bg-icon-missed"
+                    : "border-2 border-primary-border bg-transparent text-primary-strong hover:bg-icon-due"
               }`}
             >
               {state === "missed" ? "Mark as taken now" : "Mark as taken"}
@@ -148,7 +150,7 @@ export function MedicationCard({
             <button
               type="button"
               onClick={() => setConfirmOpen(true)}
-              className="flex min-h-[56px] items-center px-2 text-lg font-medium text-primary underline-offset-4 hover:underline"
+              className="flex min-h-[56px] items-center px-2 text-lg font-medium text-primary-strong underline-offset-4 hover:underline"
             >
               Undo
             </button>
@@ -159,13 +161,10 @@ export function MedicationCard({
           <ChevronRight
             aria-hidden="true"
             strokeWidth={2}
-            className={`h-6 w-6 shrink-0 ${
-              state === "missed" ? "text-warning-foreground/60" : "text-muted-foreground"
-            }`}
+            className="h-6 w-6 shrink-0 text-muted-foreground"
           />
         )}
       </div>
-
 
       <AlertDialog open={confirmOpen} onOpenChange={setConfirmOpen}>
         <AlertDialogContent className="rounded-2xl">
