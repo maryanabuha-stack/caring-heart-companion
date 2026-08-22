@@ -106,7 +106,7 @@ function Dashboard() {
       <ConfirmationBanner message={banner} />
 
       <div className="flex flex-col gap-6">
-        {next && (
+        {next ? (
           <section className="flex flex-wrap items-center gap-4 rounded-2xl bg-tint px-6 py-5">
             <div className="min-w-[180px] flex-1">
               <p className="text-base font-normal text-tint-foreground">Next medication</p>
@@ -121,6 +121,8 @@ function Dashboard() {
               Mark as taken
             </button>
           </section>
+        ) : (
+          <MedicationCard state="empty" nextReminderTime={tomorrowFirst} />
         )}
 
         <section className="rounded-lg border border-border/60 bg-card/60 px-6 py-5">
