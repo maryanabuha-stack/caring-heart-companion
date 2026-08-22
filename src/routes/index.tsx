@@ -10,7 +10,7 @@ import { MedicationCard } from "@/components/carenest/MedicationCard";
 import { PageShell } from "@/components/carenest/PageShell";
 import { ConfirmationBanner } from "@/components/carenest/ConfirmationBanner";
 import { useNow } from "@/hooks/use-now";
-import { byPriority, medState, nowLabel } from "@/lib/med-time";
+import { byPriority, medState, nowLabel, parseTimeLabel } from "@/lib/med-time";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -81,10 +81,14 @@ function Dashboard() {
     .map((m) => ({ ...m, state: medState(m.time, m.takenAt, now) }))
     .sort(byPriority);
 
-  const taken = rows.filter((m) => m.state === "taken").length;
-  const total = rows.length;
-  const next = rows.find((m) => m.state === "due") ?? rows.find((m) => m.state === "missed");
+  const next =
+    rows.find((m) => m.state === "due") ??
+    rows.find((m) => m.state === "missed") ??
+    rows.find((m) => m.state === "upcoming");
   const primaryId = next?.id;
+
+  const tomorrowFirst = [...meds]
+    .sort((a, b) => (parseTimeLabel(a.time) ?? 0) - (parseTimeLabel(b.time) ?? 0))[0]?.time;
 
 
   return (
