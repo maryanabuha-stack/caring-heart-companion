@@ -230,7 +230,7 @@ function TaskRow({
     >
       <span
         className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border-2 ${
-          completedAt ? "border-success bg-success" : "border-muted-foreground/50 bg-card"
+          completedAt ? "border-primary bg-primary" : "border-primary/30 bg-tint"
         }`}
       >
         {completedAt && <Check className="h-5 w-5 text-card" strokeWidth={3} />}

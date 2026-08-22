@@ -100,11 +100,19 @@ function Dashboard() {
 
       <div className="flex flex-col gap-6">
         {next && (
-          <section className="rounded-2xl bg-tint px-6 py-5">
-            <p className="text-base font-medium text-tint-foreground">Next action</p>
-            <p className="mt-1 text-2xl font-semibold">
-              Take {next.name} at {next.time}
-            </p>
+          <section className="flex flex-wrap items-center gap-4 rounded-2xl bg-tint px-6 py-5">
+            <div className="min-w-[180px] flex-1">
+              <p className="text-base font-normal text-tint-foreground">Next medication</p>
+              <p className="mt-1 text-2xl font-bold">{next.name}</p>
+              <p className="mt-0.5 text-lg font-normal text-muted-foreground">{next.time}</p>
+            </div>
+            <button
+              type="button"
+              onClick={() => markTaken(next)}
+              className="min-h-[56px] rounded-[14px] bg-primary px-6 text-lg font-semibold text-primary-foreground transition-colors hover:opacity-90"
+            >
+              Mark as taken
+            </button>
           </section>
         )}
 
@@ -117,7 +125,7 @@ function Dashboard() {
             {rows.map((med, i) => (
               <span
                 key={med.id}
-                className={`h-4 flex-1 rounded-[4px] ${i < taken ? "bg-primary" : "bg-muted"}`}
+                className={`h-2 flex-1 rounded-full ${i < taken ? "bg-primary" : "bg-muted"}`}
               />
             ))}
           </div>
@@ -207,8 +215,8 @@ function TaskRow({
       className="flex min-h-[88px] w-full items-center gap-4 px-2 py-4 text-left"
     >
       <span
-        className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border-2 ${
-          completedAt ? "border-success bg-success" : "border-muted-foreground/50 bg-card"
+        className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-[8px] border-2 ${
+          completedAt ? "border-primary bg-primary" : "border-primary/30 bg-tint"
         }`}
       >
         {completedAt && <Check className="h-5 w-5 text-card" strokeWidth={3} />}

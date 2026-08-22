@@ -46,7 +46,7 @@ const statusText: Record<Exclude<MedicationState, "empty">, string> = {
   upcoming: "text-muted-foreground",
   due: "text-primary-strong",
   missed: "text-warning-foreground",
-  taken: "text-success",
+  taken: "text-primary",
 };
 
 export function MedicationCard({
@@ -66,7 +66,7 @@ export function MedicationCard({
   if (state === "empty") {
     return (
       <div className="flex flex-col items-center gap-3 px-6 py-10 text-center">
-        <CheckCircle2 className="h-14 w-14 text-success" />
+        <CheckCircle2 className="h-14 w-14 text-primary" strokeWidth={2} />
         <p className="text-2xl font-semibold">All done for today</p>
         <p className="text-lg text-muted-foreground">
           Next reminder tomorrow at {nextReminderTime ?? "8:00 AM"}
@@ -77,19 +77,9 @@ export function MedicationCard({
 
   const icon =
     state === "missed" ? (
-      <svg viewBox="0 0 24 24" className="h-6 w-6" aria-hidden="true">
-        <path
-          d="M12 3.2 22 20.4H2L12 3.2Z"
-          fill="var(--warning-strong)"
-          stroke="var(--warning-strong)"
-          strokeWidth="1.6"
-          strokeLinejoin="round"
-        />
-        <path d="M12 9.6v4.6" stroke="#fff" strokeWidth="2" strokeLinecap="round" />
-        <circle cx="12" cy="17.3" r="1.15" fill="#fff" />
-      </svg>
+      <AlertTriangle className="h-6 w-6 text-warning-strong" strokeWidth={2} fill="none" />
     ) : state === "taken" ? (
-      <Check className="h-6 w-6 text-success" strokeWidth={3} />
+      <Check className="h-6 w-6 text-primary" strokeWidth={2} />
     ) : state === "due" ? (
       <AlarmClock className="h-6 w-6 text-primary-strong" strokeWidth={2} />
     ) : (
@@ -140,7 +130,7 @@ export function MedicationCard({
             <button
               type="button"
               onClick={onMarkTaken}
-              className={`min-h-[56px] rounded-lg px-6 text-lg font-semibold transition-colors ${
+              className={`min-h-[56px] rounded-[14px] px-6 text-lg font-semibold transition-colors ${
                 state === "missed"
                   ? "bg-warning-strong text-warning-strong-foreground hover:opacity-90"
                   : state === "due"
@@ -157,7 +147,7 @@ export function MedicationCard({
             <button
               type="button"
               onClick={() => setConfirmOpen(true)}
-              className="flex min-h-[56px] items-center rounded-lg bg-transparent px-6 text-lg font-semibold text-primary-strong underline-offset-4 transition-colors hover:underline"
+              className="flex min-h-[56px] items-center rounded-[14px] bg-transparent px-6 text-lg font-semibold text-primary-strong underline-offset-4 transition-colors hover:underline"
             >
               Undo
             </button>
@@ -185,12 +175,12 @@ export function MedicationCard({
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel className="min-h-[56px] rounded-2xl text-lg">
+            <AlertDialogCancel className="min-h-[56px] rounded-[14px] text-lg">
               Cancel
             </AlertDialogCancel>
             <AlertDialogAction
               onClick={() => onUndo?.()}
-              className="min-h-[56px] rounded-2xl bg-primary text-lg text-primary-foreground"
+              className="min-h-[56px] rounded-[14px] bg-primary text-lg text-primary-foreground"
             >
               Yes, undo
             </AlertDialogAction>
