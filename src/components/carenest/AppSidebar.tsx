@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import {
   Home,
@@ -22,6 +22,18 @@ const items = [
 export function AppSidebar() {
   const pathname = useRouterState({ select: (r) => r.location.pathname });
   const [collapsed, setCollapsed] = useState(false);
+
+  // Restore the user's collapse choice so it survives navigation and reloads.
+  useEffect(() => {
+    if (localStorage.getItem("carenest.sidebar.collapsed") === "1") setCollapsed(true);
+  }, []);
+
+  const toggleCollapsed = () =>
+    setCollapsed((v) => {
+      const next = !v;
+      localStorage.setItem("carenest.sidebar.collapsed", next ? "1" : "0");
+      return next;
+    });
 
   return (
     <aside

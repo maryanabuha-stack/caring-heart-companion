@@ -173,7 +173,7 @@ function Dashboard() {
             >
               <span className="flex-1 text-lg font-medium">Log how you&apos;re feeling today</span>
               <span className="text-base text-muted-foreground">Open Symptom Tracking</span>
-              <ChevronRight className="h-6 w-6 text-primary" />
+              <ChevronRight className="h-6 w-6 text-muted-foreground" />
             </button>
           </div>
         </section>
