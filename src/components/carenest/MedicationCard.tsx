@@ -77,19 +77,9 @@ export function MedicationCard({
 
   const icon =
     state === "missed" ? (
-      <svg viewBox="0 0 24 24" className="h-6 w-6" aria-hidden="true">
-        <path
-          d="M12 3.2 22 20.4H2L12 3.2Z"
-          fill="var(--warning-strong)"
-          stroke="var(--warning-strong)"
-          strokeWidth="1.6"
-          strokeLinejoin="round"
-        />
-        <path d="M12 9.6v4.6" stroke="#fff" strokeWidth="2" strokeLinecap="round" />
-        <circle cx="12" cy="17.3" r="1.15" fill="#fff" />
-      </svg>
+      <AlertTriangle className="h-6 w-6 text-warning-strong" strokeWidth={2} fill="none" />
     ) : state === "taken" ? (
-      <Check className="h-6 w-6 text-success" strokeWidth={3} />
+      <Check className="h-6 w-6 text-primary" strokeWidth={2} />
     ) : state === "due" ? (
       <AlarmClock className="h-6 w-6 text-primary-strong" strokeWidth={2} />
     ) : (
