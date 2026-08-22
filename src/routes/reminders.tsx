@@ -4,7 +4,17 @@ import { PageShell } from "@/components/carenest/PageShell";
 import { ConfirmationBanner } from "@/components/carenest/ConfirmationBanner";
 import { MedicationCard } from "@/components/carenest/MedicationCard";
 import { useNow } from "@/hooks/use-now";
-import { Sun, CloudSun, Moon, Check, Pill, GlassWater, Footprints, ChevronDown, type LucideIcon } from "lucide-react";
+import {
+  Sun,
+  CloudSun,
+  Moon,
+  Check,
+  Pill,
+  GlassWater,
+  Footprints,
+  ChevronDown,
+  type LucideIcon,
+} from "lucide-react";
 import { byPriority, medState, nowLabel, type MedTimeState } from "@/lib/med-time";
 
 export const Route = createFileRoute("/reminders")({
@@ -150,7 +160,8 @@ function Reminders() {
     })
     .sort(byPriority);
 
-  const primaryId = (rows.find((r) => r.state === "due") ?? rows.find((r) => r.state === "missed"))?.id;
+  const primaryId = (rows.find((r) => r.state === "due") ?? rows.find((r) => r.state === "missed"))
+    ?.id;
 
   const allDone = rows.every((r) => r.state === "taken");
 

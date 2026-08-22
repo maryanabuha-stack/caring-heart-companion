@@ -166,9 +166,7 @@ export function MedicationCard({
       <AlertDialog open={confirmOpen} onOpenChange={setConfirmOpen}>
         <AlertDialogContent className="rounded-2xl">
           <AlertDialogHeader>
-            <AlertDialogTitle className="text-2xl">
-              Undo marking {name} as taken?
-            </AlertDialogTitle>
+            <AlertDialogTitle className="text-2xl">Undo marking {name} as taken?</AlertDialogTitle>
             <AlertDialogDescription className="text-lg">
               This will move {name} back to your medications to take today.
             </AlertDialogDescription>
