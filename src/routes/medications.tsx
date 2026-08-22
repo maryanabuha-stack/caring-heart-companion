@@ -152,7 +152,7 @@ function Medications() {
         </div>
       )}
 
-      <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-12">
         {groups.map((group) => {
           const rows = withState.filter((m) => m.group === group).sort(byPriority);
           if (rows.length === 0) return null;
