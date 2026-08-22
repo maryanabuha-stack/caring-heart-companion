@@ -48,7 +48,8 @@ export function AppSidebar() {
     });
 
   return (
-    <>
+    <AlertDialog open={emergencyOpen} onOpenChange={setEmergencyOpen}>
+
       <aside
         className={`sticky top-0 flex h-screen shrink-0 flex-col overflow-y-auto border-r border-sidebar-border bg-sidebar px-4 py-6 text-sidebar-foreground transition-[width] duration-200 ${
           collapsed ? "w-[104px]" : "w-[320px]"
