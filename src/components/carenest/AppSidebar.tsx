@@ -161,6 +161,6 @@ export function AppSidebar() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </>
   );
+
 }
