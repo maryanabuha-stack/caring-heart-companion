@@ -1,4 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
+import { useState } from "react";
 import {
   LayoutDashboard,
   Pill,
@@ -6,7 +7,19 @@ import {
   MessageSquare,
   BellRing,
   Settings,
+  Phone,
 } from "lucide-react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { useAppSettings } from "@/hooks/use-app-settings";
 
 const items = [
   { title: "Dashboard", url: "/", icon: LayoutDashboard },
@@ -18,6 +31,9 @@ const items = [
 
 export function AppSidebar() {
   const pathname = useRouterState({ select: (r) => r.location.pathname });
+  const [confirmEmergency, setConfirmEmergency] = useState(false);
+  // Applies the saved text-size / contrast preferences on every screen.
+  useAppSettings();
 
   return (
     <aside className="sticky top-0 flex h-screen w-[320px] shrink-0 flex-col overflow-y-auto bg-navy px-5 py-6 text-navy-foreground">
@@ -48,9 +64,18 @@ export function AppSidebar() {
         })}
       </nav>
 
-      <div className="mt-auto">
+      <div className="mt-auto flex flex-col gap-1">
         <button
           type="button"
+          onClick={() => setConfirmEmergency(true)}
+          className="flex min-h-[56px] w-full items-center gap-4 rounded-2xl px-5 text-left text-lg font-semibold text-emergency transition-colors hover:bg-primary/15"
+        >
+          <Phone className="h-6 w-6 shrink-0" aria-hidden="true" />
+          <span className="whitespace-nowrap">Emergency: Call 911</span>
+        </button>
+
+        <Link
+          to="/settings"
           className="flex min-h-[56px] w-full items-center gap-4 rounded-2xl px-5 text-left transition-colors hover:bg-primary/15"
         >
           <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/25 text-base font-semibold">
@@ -62,8 +87,30 @@ export function AppSidebar() {
               <Settings className="h-4 w-4" /> Settings
             </span>
           </span>
-        </button>
+        </Link>
       </div>
+
+      <AlertDialog open={confirmEmergency} onOpenChange={setConfirmEmergency}>
+        <AlertDialogContent className="rounded-2xl">
+          <AlertDialogHeader>
+            <AlertDialogTitle className="text-2xl">Call emergency services now?</AlertDialogTitle>
+            <AlertDialogDescription className="text-lg">
+              This will open your phone app and start a call to 911.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter className="gap-3">
+            <AlertDialogCancel className="min-h-[56px] rounded-2xl px-8 text-lg">
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction
+              asChild
+              className="min-h-[56px] rounded-2xl bg-primary px-8 text-lg text-primary-foreground"
+            >
+              <a href="tel:911">Yes, call</a>
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </aside>
   );
 }
