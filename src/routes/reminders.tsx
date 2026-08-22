@@ -132,7 +132,7 @@ function Reminders() {
 
   return (
     <PageShell>
-      <h1 className="text-3xl font-semibold">Today&apos;s reminders</h1>
+      <h1 className="text-3xl font-medium">Today&apos;s reminders</h1>
       <p className="mb-6 mt-2 text-lg text-muted-foreground">
         Everything on your schedule for today, in order.
       </p>
