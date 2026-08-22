@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import {
-  LayoutDashboard,
+  Home,
   Pill,
-  Activity,
+  Heart,
   MessageSquare,
   BellRing,
   Settings,
@@ -12,9 +12,9 @@ import {
 } from "lucide-react";
 
 const items = [
-  { title: "Dashboard", url: "/", icon: LayoutDashboard },
+  { title: "Dashboard", url: "/", icon: Home },
   { title: "Medications", url: "/medications", icon: Pill },
-  { title: "Symptom Tracking", url: "/symptom-tracking", icon: Activity },
+  { title: "Symptom Tracking", url: "/symptom-tracking", icon: Heart },
   { title: "Communication", url: "/communication", icon: MessageSquare },
   { title: "Reminders", url: "/reminders", icon: BellRing },
 ] as const;
