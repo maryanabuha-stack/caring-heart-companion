@@ -100,12 +100,21 @@ const tomorrow = tomorrowGroups.flatMap((g) => g.items);
 
 function tomorrowItemIcon(name: string) {
   if (name === "Drink a glass of water") {
-    return <GlassWater className="h-6 w-6 text-reminder-water-icon" strokeWidth={2} />;
+    return {
+      icon: <GlassWater className="h-6 w-6 text-reminder-water-icon" strokeWidth={2} />,
+      bg: "bg-reminder-water",
+    };
   }
   if (name === "Take a short walk") {
-    return <Footprints className="h-6 w-6 text-reminder-walk-icon" strokeWidth={2} />;
+    return {
+      icon: <Footprints className="h-6 w-6 text-reminder-walk-icon" strokeWidth={2} />,
+      bg: "bg-reminder-walk",
+    };
   }
-  return <Pill className="h-6 w-6 text-reminder-medication-icon" strokeWidth={2} />;
+  return {
+    icon: <Pill className="h-6 w-6 text-reminder-medication-icon" strokeWidth={2} />,
+    bg: "bg-reminder-medication",
+  };
 }
 
 function Reminders() {
@@ -203,7 +212,7 @@ function Reminders() {
 
       <section className="mt-8">
         <h2 className="mb-4 text-2xl font-semibold">Tomorrow&apos;s schedule</h2>
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-12">
           {tomorrowGroups.map((group) => {
             const GroupIcon = group.icon;
             return (
@@ -218,10 +227,14 @@ function Reminders() {
                 </h3>
                 <ul className="flex flex-col divide-y divide-divider">
                   {group.items.map((item) => {
-                    const icon = tomorrowItemIcon(item.name);
+                    const { icon, bg } = tomorrowItemIcon(item.name);
                     return (
                       <li key={`${item.name}-${item.time}`} className="flex items-center gap-4 py-4">
-                        {icon}
+                        <span
+                          className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full ${bg}`}
+                        >
+                          {icon}
+                        </span>
                         <div>
                           <p className="text-lg font-semibold">{item.name}</p>
                           <p className="text-[15px] text-muted-foreground">{item.time}</p>
