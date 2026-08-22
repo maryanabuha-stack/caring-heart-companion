@@ -107,15 +107,15 @@ export function AppSidebar() {
             onClick={() => setEmergencyOpen(true)}
             aria-label="Emergency call 911"
             title={collapsed ? "Emergency call 911" : undefined}
-            className={`flex min-h-[56px] items-center gap-3 rounded-[14px] bg-emergency-bg px-4 text-left text-emergency-text transition-colors hover:bg-emergency-bg/80 ${
+            className={`flex min-h-[56px] items-center gap-3 rounded-[14px] bg-emergency-bg px-4 py-1 text-left text-emergency-text transition-colors hover:bg-emergency-bg/80 ${
               collapsed ? "justify-center" : "w-full"
             }`}
           >
             <Phone className="h-6 w-6 shrink-0" aria-hidden="true" />
             {!collapsed && (
-              <span className="flex flex-col">
+                <span className="flex flex-col">
                 <span className="text-lg font-semibold">Emergency</span>
-                <span className="text-base">Call 911</span>
+                <span className="text-base text-black">Call 911</span>
               </span>
             )}
           </button>
