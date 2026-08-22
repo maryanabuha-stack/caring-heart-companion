@@ -49,7 +49,6 @@ export function AppSidebar() {
 
   return (
     <AlertDialog open={emergencyOpen} onOpenChange={setEmergencyOpen}>
-
       <aside
         className={`sticky top-0 flex h-screen shrink-0 flex-col overflow-y-auto border-r border-sidebar-border bg-sidebar px-4 py-6 text-sidebar-foreground transition-[width] duration-200 ${
           collapsed ? "w-[104px]" : "w-[320px]"
@@ -142,25 +141,23 @@ export function AppSidebar() {
         </div>
       </aside>
 
-      <AlertDialog open={emergencyOpen} onOpenChange={setEmergencyOpen}>
-        <AlertDialogContent className="rounded-2xl">
-          <AlertDialogHeader>
-            <AlertDialogTitle className="text-2xl">Call emergency services?</AlertDialogTitle>
-            <AlertDialogDescription className="text-lg">
-              This will call 911. Only use this for a real emergency.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter className="gap-3">
-            <AlertDialogCancel className="min-h-[56px] rounded-2xl px-8 text-lg">Cancel</AlertDialogCancel>
-            <AlertDialogAction
-              asChild
-              className="min-h-[56px] rounded-2xl bg-emergency-button px-8 text-lg text-emergency-button-foreground transition-colors hover:bg-emergency-button-hover"
-            >
-              <a href="tel:911">Yes, call now</a>
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <AlertDialogContent className="rounded-2xl">
+        <AlertDialogHeader>
+          <AlertDialogTitle className="text-2xl">Call emergency services?</AlertDialogTitle>
+          <AlertDialogDescription className="text-lg">
+            This will call 911. Only use this for a real emergency.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter className="gap-3">
+          <AlertDialogCancel className="min-h-[56px] rounded-2xl px-8 text-lg">Cancel</AlertDialogCancel>
+          <AlertDialogAction
+            asChild
+            className="min-h-[56px] rounded-2xl bg-emergency-button px-8 text-lg text-emergency-button-foreground transition-colors hover:bg-emergency-button-hover"
+          >
+            <a href="tel:911">Yes, call now</a>
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
-
 }
