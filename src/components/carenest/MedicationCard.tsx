@@ -140,16 +140,17 @@ export function MedicationCard({
             <button
               type="button"
               onClick={onMarkTaken}
-              className={`min-h-[56px] rounded-2xl px-6 text-lg font-semibold transition-colors ${
-                emphasis === "primary"
-                  ? "bg-primary text-primary-foreground hover:opacity-90"
-                  : state === "missed"
-                    ? "border-2 border-warning-border bg-transparent text-warning-foreground hover:bg-icon-missed"
-                    : "border-2 border-primary-border bg-transparent text-primary-strong hover:bg-icon-due"
+              className={`min-h-[56px] rounded-lg px-6 text-lg font-semibold transition-colors ${
+                state === "missed"
+                  ? "bg-warning-strong text-warning-strong-foreground hover:opacity-90"
+                  : state === "due"
+                    ? "bg-primary text-primary-foreground hover:opacity-90"
+                    : "bg-muted text-muted-foreground hover:bg-secondary"
               }`}
             >
-              {state === "missed" ? "Mark as taken now" : "Mark as taken"}
+              Mark as taken
             </button>
+
           )}
 
           {state === "taken" && (
