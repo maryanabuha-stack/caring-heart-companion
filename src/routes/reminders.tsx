@@ -183,7 +183,7 @@ function Reminders() {
 
       <section className="mt-8">
         <h2 className="mb-4 text-2xl font-semibold">Tomorrow</h2>
-        <div className="flex flex-col gap-8 rounded-2xl bg-card px-6 py-5">
+        <div className="flex flex-col gap-8">
           {tomorrowGroups.map((group) => {
             const GroupIcon = group.icon;
             return (

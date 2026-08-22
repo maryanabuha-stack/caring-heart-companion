@@ -204,7 +204,7 @@ function TaskRow({
       type="button"
       aria-pressed={!!completedAt}
       onClick={onToggle}
-      className="flex min-h-[88px] w-full items-center gap-4 bg-card px-2 py-4 text-left"
+      className="flex min-h-[88px] w-full items-center gap-4 px-2 py-4 text-left"
     >
       <span
         className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border-2 ${
