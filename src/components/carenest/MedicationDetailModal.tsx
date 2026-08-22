@@ -91,7 +91,7 @@ export function MedicationDetailModal({
                     : "cursor-not-allowed bg-muted text-muted-foreground"
               }`}
             >
-              {med.state === "missed" ? "Mark as taken now" : "Mark as taken"}
+              Mark as taken
             </button>
           )}
         </div>
