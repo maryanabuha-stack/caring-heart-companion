@@ -130,6 +130,9 @@ function Medications() {
     announce(`${med.name} moved back to today's medications`);
   };
 
+  const primaryId = (withState.slice().sort(byPriority).find((m) => m.state === "due") ??
+    withState.slice().sort(byPriority).find((m) => m.state === "missed"))?.id;
+
   const allTaken = withState.every((m) => m.state === "taken");
   const openMed = withState.find((m) => m.id === openId) ?? null;
 
@@ -143,7 +146,7 @@ function Medications() {
       <ConfirmationBanner message={banner} />
 
       {allTaken && (
-        <div className="mb-6 flex min-h-[64px] items-center gap-3 rounded-2xl bg-neutral-row px-5 py-4">
+        <div className="mb-6 flex min-h-[64px] items-center gap-3 rounded-2xl bg-card px-5 py-4">
           <CheckCircle2 className="h-7 w-7 text-success" />
           <p className="text-xl font-semibold">All medications taken for today</p>
         </div>
@@ -160,10 +163,11 @@ function Medications() {
                 <GroupIcon aria-hidden="true" strokeWidth={2} className="h-7 w-7 text-muted-foreground" />
                 {group}
               </h2>
-              <div className="flex flex-col gap-3 rounded-2xl bg-card p-5">
+              <div className="flex flex-col divide-y divide-divider rounded-2xl bg-card px-5 py-2">
                 {rows.map((med) => (
                   <MedicationCard
                     key={med.id}
+                    emphasis={med.id === primaryId ? "primary" : "secondary"}
                     state={med.state}
                     name={med.name}
                     time={med.time}
