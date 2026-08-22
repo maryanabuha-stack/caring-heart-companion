@@ -249,15 +249,19 @@ function Reminders() {
                   </h3>
                   <ul className="flex flex-col gap-3">
                     {group.items.map((item) => {
-                      const { icon, className: iconBg } = tomorrowItemIcon(item.name);
+                      const {
+                        icon,
+                        className: iconBg,
+                        label: iconLabel,
+                      } = tomorrowItemIcon(item.name);
                       return (
                         <li
                           key={`${item.name}-${item.time}`}
-                          className="flex min-h-[72px] items-center gap-4 rounded-2xl bg-neutral-row px-5 py-4"
+                          className="flex items-center gap-4 rounded-2xl bg-neutral-row px-5 py-4"
                         >
                           <span
                             className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full ${iconBg}`}
-                            aria-label={tomorrowItemIcon(item.name).label}
+                            aria-label={iconLabel}
                           >
                             {icon}
                           </span>
