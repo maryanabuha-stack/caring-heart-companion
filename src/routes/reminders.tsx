@@ -126,6 +126,8 @@ function Reminders() {
     })
     .sort(byPriority);
 
+  const primaryId = (rows.find((r) => r.state === "due") ?? rows.find((r) => r.state === "missed"))?.id;
+
   const allDone = rows.every((r) => r.state === "taken");
 
   return (
@@ -149,7 +151,7 @@ function Reminders() {
             return (
               <section key={section.label}>
                 <h2 className="mb-3 text-2xl font-semibold">{section.label}</h2>
-                <div className="flex flex-col gap-3 rounded-2xl bg-card p-5">
+                <div className="flex flex-col divide-y divide-divider rounded-2xl bg-card px-5 py-2">
                   {sectionRows.map((item) =>
                     item.kind === "task" ? (
                       <TaskRow
@@ -161,6 +163,7 @@ function Reminders() {
                     ) : (
                       <MedicationCard
                         key={item.id}
+                        emphasis={item.id === primaryId ? "primary" : "secondary"}
                         state={item.state}
                         name={item.name}
                         time={item.time}
@@ -189,11 +192,11 @@ function Reminders() {
                   <GroupIcon aria-hidden="true" strokeWidth={2} className="h-7 w-7 text-muted-foreground" />
                   {group.label}
                 </h3>
-                <ul className="flex flex-col gap-3">
+                <ul className="flex flex-col divide-y divide-divider">
                   {group.items.map((item) => (
                     <li
                       key={`${item.name}-${item.time}`}
-                      className="rounded-2xl bg-neutral-row px-5 py-4"
+                      className="px-2 py-4"
                     >
                       <p className="text-lg font-semibold">{item.name}</p>
                       <p className="text-[15px] text-muted-foreground">{item.time}</p>
@@ -223,7 +226,7 @@ function TaskRow({
       type="button"
       aria-pressed={!!completedAt}
       onClick={onToggle}
-      className="flex min-h-[88px] w-full items-center gap-4 rounded-2xl bg-neutral-row px-5 py-4 text-left"
+      className="flex min-h-[88px] w-full items-center gap-4 bg-card px-2 py-4 text-left"
     >
       <span
         className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border-2 ${
