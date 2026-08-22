@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { Clock, AlarmClock, AlertTriangle, CheckCircle2, Check, ChevronRight } from "lucide-react";
 import {
   AlertDialog,
@@ -24,6 +24,11 @@ export type MedicationCardProps = {
   onMarkTaken?: () => void;
   onUndo?: () => void;
   onOpenDetail?: () => void;
+  contentIcon?: ReactNode;
+  contentIconClassName?: string;
+  onIconClick?: () => void;
+  expanded?: boolean;
+  details?: ReactNode;
   className?: string;
 };
 
@@ -59,6 +64,11 @@ export function MedicationCard({
   onMarkTaken,
   onUndo,
   onOpenDetail,
+  contentIcon,
+  contentIconClassName,
+  onIconClick,
+  expanded,
+  details,
   className = "",
 }: MedicationCardProps) {
   const [confirmOpen, setConfirmOpen] = useState(false);
@@ -75,7 +85,7 @@ export function MedicationCard({
     );
   }
 
-  const icon =
+  const statusIcon =
     state === "missed" ? (
       <AlertTriangle className="h-6 w-6 text-warning-strong" strokeWidth={2} fill="none" />
     ) : state === "taken" ? (
@@ -86,109 +96,136 @@ export function MedicationCard({
       <Clock className="h-6 w-6 text-muted-foreground" strokeWidth={2} />
     );
 
+  const iconElement = contentIcon ?? statusIcon;
+  const iconBackground = contentIcon ? contentIconClassName : iconSurface[state];
+
+  const iconContainer = onIconClick ? (
+    <button
+      type="button"
+      onClick={(e) => {
+        e.stopPropagation();
+        onIconClick();
+      }}
+      className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full ${iconBackground} focus:outline-none focus-visible:ring-2 focus-visible:ring-ring`}
+      aria-label={expanded ? `Hide details for ${name}` : `Show details for ${name}`}
+    >
+      {iconElement}
+    </button>
+  ) : (
+    <span
+      className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full ${iconBackground}`}
+    >
+      {iconElement}
+    </span>
+  );
 
   const interactive = Boolean(onOpenDetail);
+  const isExpanded = Boolean(expanded && details);
 
   return (
-    <div
-      {...(interactive
-        ? {
-            role: "button" as const,
-            tabIndex: 0,
-            "aria-label": `Open details for ${name}`,
-            onClick: onOpenDetail,
-            onKeyDown: (e: React.KeyboardEvent) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                onOpenDetail?.();
-              }
-            },
-          }
-        : {})}
-      className={`flex min-h-[104px] flex-wrap items-center gap-4 px-2 py-6 transition-colors duration-200 ease-out ${
-        interactive ? "cursor-pointer text-left hover:bg-muted/50" : ""
-      } ${className}`}
-    >
-      <span
-        className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full ${iconSurface[state]}`}
+    <div className={`flex flex-col ${className}`}>
+      <div
+        {...(interactive
+          ? {
+              role: "button" as const,
+              tabIndex: 0,
+              "aria-label": `Open details for ${name}`,
+              onClick: onOpenDetail,
+              onKeyDown: (e: React.KeyboardEvent) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  onOpenDetail?.();
+                }
+              },
+            }
+          : {})}
+        className={`flex min-h-[104px] flex-wrap items-center gap-4 px-2 transition-colors duration-200 ease-out ${
+          isExpanded ? "pt-6 pb-2" : "py-6"
+        } ${interactive ? "cursor-pointer text-left hover:bg-muted/50" : ""}`}
       >
-        {icon}
-      </span>
+        {iconContainer}
 
-      <div className="min-w-[180px] flex-1">
-        <p className="text-xl font-semibold">{name}</p>
-        <p className="text-lg text-muted-foreground">
-          {state === "taken" ? `Taken at ${takenAt ?? time}` : time}
-          <span aria-hidden="true"> • </span>
-          <span className={`font-medium ${statusText[state]}`}>{statusLabel[state]}</span>
-        </p>
-      </div>
+        <div className="min-w-[180px] flex-1">
+          <p className="text-xl font-semibold">{name}</p>
+          <p className="text-lg text-muted-foreground">
+            {state === "taken" ? `Taken at ${takenAt ?? time}` : time}
+            <span aria-hidden="true"> • </span>
+            <span className={`font-medium ${statusText[state]}`}>{statusLabel[state]}</span>
+          </p>
+        </div>
 
-      <div className="ml-auto flex items-center gap-3">
-        <div onClick={(e) => e.stopPropagation()}>
-          {(state === "due" || state === "missed" || state === "upcoming") && (
-            <button
-              type="button"
-              disabled={state === "upcoming"}
-              aria-disabled={state === "upcoming"}
-              onClick={state === "upcoming" ? undefined : onMarkTaken}
-              className={`min-h-[56px] rounded-[14px] px-6 text-lg font-semibold transition-colors ${
-                state === "missed"
-                  ? "bg-warning-strong text-warning-strong-foreground hover:opacity-90"
-                  : state === "due"
-                    ? "bg-primary text-primary-foreground hover:opacity-90"
-                    : "cursor-not-allowed bg-muted text-muted-foreground"
-              }`}
-            >
-              Mark as taken
-            </button>
+        <div className="ml-auto flex items-center gap-3">
+          <div onClick={(e) => e.stopPropagation()}>
+            {(state === "due" || state === "missed" || state === "upcoming") && (
+              <button
+                type="button"
+                disabled={state === "upcoming"}
+                aria-disabled={state === "upcoming"}
+                onClick={state === "upcoming" ? undefined : onMarkTaken}
+                className={`min-h-[56px] rounded-[14px] px-6 text-lg font-semibold transition-colors ${
+                  state === "missed"
+                    ? "bg-warning-strong text-warning-strong-foreground hover:opacity-90"
+                    : state === "due"
+                      ? "bg-primary text-primary-foreground hover:opacity-90"
+                      : "cursor-not-allowed bg-muted text-muted-foreground"
+                }`}
+              >
+                Mark as taken
+              </button>
+            )}
 
-          )}
+            {state === "taken" && (
+              <button
+                type="button"
+                onClick={() => setConfirmOpen(true)}
+                className="flex min-h-[56px] items-center rounded-[14px] bg-transparent px-6 text-lg font-semibold text-primary-strong underline-offset-4 transition-colors hover:underline"
+              >
+                Undo
+              </button>
+            )}
+          </div>
 
-          {state === "taken" && (
-            <button
-              type="button"
-              onClick={() => setConfirmOpen(true)}
-              className="flex min-h-[56px] items-center rounded-[14px] bg-transparent px-6 text-lg font-semibold text-primary-strong underline-offset-4 transition-colors hover:underline"
-            >
-              Undo
-            </button>
-
+          {interactive && (
+            <ChevronRight
+              aria-hidden="true"
+              strokeWidth={2}
+              className="h-6 w-6 shrink-0 text-muted-foreground"
+            />
           )}
         </div>
 
-        {interactive && (
-          <ChevronRight
-            aria-hidden="true"
-            strokeWidth={2}
-            className="h-6 w-6 shrink-0 text-muted-foreground"
-          />
-        )}
+        <AlertDialog open={confirmOpen} onOpenChange={setConfirmOpen}>
+          <AlertDialogContent className="rounded-2xl">
+            <AlertDialogHeader>
+              <AlertDialogTitle className="text-2xl">
+                Undo marking {name} as taken?
+              </AlertDialogTitle>
+              <AlertDialogDescription className="text-lg">
+                This will move {name} back to your medications to take today.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel className="min-h-[56px] rounded-[14px] text-lg">
+                Cancel
+              </AlertDialogCancel>
+              <AlertDialogAction
+                onClick={() => onUndo?.()}
+                className="min-h-[56px] rounded-[14px] bg-primary text-lg text-primary-foreground"
+              >
+                Yes, undo
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
 
-      <AlertDialog open={confirmOpen} onOpenChange={setConfirmOpen}>
-        <AlertDialogContent className="rounded-2xl">
-          <AlertDialogHeader>
-            <AlertDialogTitle className="text-2xl">
-              Undo marking {name} as taken?
-            </AlertDialogTitle>
-            <AlertDialogDescription className="text-lg">
-              This will move {name} back to your medications to take today.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel className="min-h-[56px] rounded-[14px] text-lg">
-              Cancel
-            </AlertDialogCancel>
-            <AlertDialogAction
-              onClick={() => onUndo?.()}
-              className="min-h-[56px] rounded-[14px] bg-primary text-lg text-primary-foreground"
-            >
-              Yes, undo
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      {isExpanded && (
+        <div className={`px-2 ${isExpanded ? "pb-6 pt-2" : ""}`}>
+          <div className="rounded-[14px] bg-muted px-5 py-4 text-lg text-muted-foreground">
+            {details}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
