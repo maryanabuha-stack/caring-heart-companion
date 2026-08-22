@@ -12,7 +12,6 @@ import {
   Pill,
   GlassWater,
   Footprints,
-  ChevronDown,
   type LucideIcon,
 } from "lucide-react";
 import { byPriority, medState, nowLabel, type MedTimeState } from "@/lib/med-time";
@@ -101,30 +100,17 @@ const tomorrow = tomorrowGroups.flatMap((g) => g.items);
 
 function tomorrowItemIcon(name: string) {
   if (name === "Drink a glass of water") {
-    return {
-      icon: <GlassWater className="h-6 w-6 text-reminder-water-icon" strokeWidth={2} />,
-      className: "bg-reminder-water",
-      label: "Drink water",
-    };
+    return <GlassWater className="h-6 w-6 text-reminder-water-icon" strokeWidth={2} />;
   }
   if (name === "Take a short walk") {
-    return {
-      icon: <Footprints className="h-6 w-6 text-reminder-walk-icon" strokeWidth={2} />,
-      className: "bg-reminder-walk",
-      label: "Take a walk",
-    };
+    return <Footprints className="h-6 w-6 text-reminder-walk-icon" strokeWidth={2} />;
   }
-  return {
-    icon: <Pill className="h-6 w-6 text-reminder-medication-icon" strokeWidth={2} />,
-    className: "bg-reminder-medication",
-    label: "Medication",
-  };
+  return <Pill className="h-6 w-6 text-reminder-medication-icon" strokeWidth={2} />;
 }
 
 function Reminders() {
   const [items, setItems] = useState<Reminder[]>(initialReminders);
   const [banner, setBanner] = useState<string | null>(null);
-  const [tomorrowOpen, setTomorrowOpen] = useState(true);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const now = useNow() ?? new Date(2000, 0, 1, 0, 0);
 
@@ -175,7 +161,7 @@ function Reminders() {
       <ConfirmationBanner message={banner} />
 
       {allDone ? (
-        <section className="rounded-2xl bg-card p-5">
+        <section>
           <MedicationCard state="empty" nextReminderTime={tomorrow[0]?.time ?? "8:00 AM"} />
         </section>
       ) : (
@@ -186,7 +172,7 @@ function Reminders() {
             return (
               <section key={section.label}>
                 <h2 className="mb-3 text-2xl font-semibold">{section.label}</h2>
-                <div className="flex flex-col divide-y divide-divider rounded-2xl bg-card p-5">
+                <div className="flex flex-col divide-y divide-divider">
                   {sectionRows.map((item) =>
                     item.kind === "task" ? (
                       <TaskRow
@@ -216,68 +202,38 @@ function Reminders() {
       )}
 
       <section className="mt-8">
-        <h2 className="mb-4">
-          <button
-            type="button"
-            onClick={() => setTomorrowOpen((v) => !v)}
-            aria-expanded={tomorrowOpen}
-            className="flex items-center gap-2 text-2xl font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-          >
-            Tomorrow
-            <ChevronDown
-              aria-hidden="true"
-              strokeWidth={2}
-              className={`h-6 w-6 text-muted-foreground transition-transform ${
-                tomorrowOpen ? "rotate-180" : ""
-              }`}
-            />
-          </button>
-        </h2>
-        {tomorrowOpen && (
-          <div className="flex flex-col gap-8">
-            {tomorrowGroups.map((group) => {
-              const GroupIcon = group.icon;
-              return (
-                <div key={group.label}>
-                  <h3 className="mb-3 flex items-center gap-2 text-2xl font-semibold">
-                    <GroupIcon
-                      aria-hidden="true"
-                      strokeWidth={2}
-                      className="h-7 w-7 text-muted-foreground"
-                    />
-                    {group.label}
-                  </h3>
-                  <ul className="flex flex-col gap-3">
-                    {group.items.map((item) => {
-                      const {
-                        icon,
-                        className: iconBg,
-                        label: iconLabel,
-                      } = tomorrowItemIcon(item.name);
-                      return (
-                        <li
-                          key={`${item.name}-${item.time}`}
-                          className="flex items-center gap-4 rounded-2xl bg-neutral-row px-5 py-4"
-                        >
-                          <span
-                            className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full ${iconBg}`}
-                            aria-label={iconLabel}
-                          >
-                            {icon}
-                          </span>
-                          <div>
-                            <p className="text-lg font-semibold">{item.name}</p>
-                            <p className="text-[15px] text-muted-foreground">{item.time}</p>
-                          </div>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </div>
-              );
-            })}
-          </div>
-        )}
+        <h2 className="mb-4 text-2xl font-semibold">Tomorrow&apos;s schedule</h2>
+        <div className="flex flex-col gap-8">
+          {tomorrowGroups.map((group) => {
+            const GroupIcon = group.icon;
+            return (
+              <div key={group.label}>
+                <h3 className="mb-3 flex items-center gap-2 text-2xl font-semibold">
+                  <GroupIcon
+                    aria-hidden="true"
+                    strokeWidth={2}
+                    className="h-7 w-7 text-muted-foreground"
+                  />
+                  {group.label}
+                </h3>
+                <ul className="flex flex-col divide-y divide-divider">
+                  {group.items.map((item) => {
+                    const icon = tomorrowItemIcon(item.name);
+                    return (
+                      <li key={`${item.name}-${item.time}`} className="flex items-center gap-4 py-4">
+                        {icon}
+                        <div>
+                          <p className="text-lg font-semibold">{item.name}</p>
+                          <p className="text-[15px] text-muted-foreground">{item.time}</p>
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            );
+          })}
+        </div>
       </section>
     </PageShell>
   );
