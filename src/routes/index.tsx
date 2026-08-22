@@ -84,9 +84,9 @@ function Dashboard() {
   const taken = rows.filter((m) => m.state === "taken").length;
   const total = rows.length;
 
-  const next =
-    rows.find((m) => m.state === "due") ?? rows.find((m) => m.state === "upcoming");
-  const primaryId = next?.id;
+  const next = rows.find((m) => m.state === "due") ?? rows.find((m) => m.state === "upcoming");
+  const primaryId =
+    (rows.find((m) => m.state === "due") ?? rows.find((m) => m.state === "missed"))?.id;
 
   const tomorrowFirst = [...meds]
     .sort((a, b) => (parseTimeLabel(a.time) ?? 0) - (parseTimeLabel(b.time) ?? 0))[0]?.time;
