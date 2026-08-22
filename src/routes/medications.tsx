@@ -163,7 +163,7 @@ function Medications() {
                 <GroupIcon aria-hidden="true" strokeWidth={2} className="h-7 w-7 text-muted-foreground" />
                 {group}
               </h2>
-              <div className="flex flex-col divide-y divide-divider rounded-2xl bg-card px-5 py-2">
+              <div className="flex flex-col divide-y divide-divider">
                 {rows.map((med) => (
                   <MedicationCard
                     key={med.id}

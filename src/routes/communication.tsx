@@ -161,7 +161,7 @@ function Communication() {
 
         <section>
           <h2 className="mb-3 text-2xl font-semibold">Recent messages</h2>
-          <div className="flex flex-col gap-3 rounded-2xl bg-card p-5">
+          <div className="flex flex-col gap-3">
             {messages.length === 0 ? (
               <div className="flex flex-col items-center gap-3 rounded-2xl bg-row px-6 py-10 text-center">
                 <MessageSquare className="h-14 w-14 text-muted-foreground" strokeWidth={2} aria-hidden="true" />
@@ -195,7 +195,7 @@ function Communication() {
                 type="button"
                 // Placeholder: this is where earlier message history would load.
                 onClick={() => announce("Earlier messages will appear here")}
-                className="mt-1 self-center rounded-lg px-3 py-2 text-lg font-medium text-primary underline-offset-4 hover:underline"
+                className="mt-1 self-center bg-transparent px-2 py-2 text-lg font-medium text-primary underline-offset-4 hover:underline"
               >
                 View earlier messages
               </button>

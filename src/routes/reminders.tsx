@@ -151,7 +151,7 @@ function Reminders() {
             return (
               <section key={section.label}>
                 <h2 className="mb-3 text-2xl font-semibold">{section.label}</h2>
-                <div className="flex flex-col divide-y divide-divider rounded-2xl bg-card px-5 py-2">
+                <div className="flex flex-col divide-y divide-divider">
                   {sectionRows.map((item) =>
                     item.kind === "task" ? (
                       <TaskRow
@@ -183,7 +183,7 @@ function Reminders() {
 
       <section className="mt-8">
         <h2 className="mb-4 text-2xl font-semibold">Tomorrow</h2>
-        <div className="flex flex-col gap-8 rounded-2xl bg-card px-6 py-5">
+        <div className="flex flex-col gap-8">
           {tomorrowGroups.map((group) => {
             const GroupIcon = group.icon;
             return (
@@ -226,7 +226,7 @@ function TaskRow({
       type="button"
       aria-pressed={!!completedAt}
       onClick={onToggle}
-      className="flex min-h-[88px] w-full items-center gap-4 bg-card px-2 py-4 text-left"
+      className="flex min-h-[88px] w-full items-center gap-4 px-2 py-4 text-left"
     >
       <span
         className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border-2 ${
