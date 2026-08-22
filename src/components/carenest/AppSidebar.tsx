@@ -113,9 +113,9 @@ export function AppSidebar() {
           >
             <Phone className="h-6 w-6 shrink-0" aria-hidden="true" />
             {!collapsed && (
-              <span className="flex flex-col">
+                <span className="flex flex-col">
                 <span className="text-lg font-semibold">Emergency</span>
-                <span className="text-base">Call 911</span>
+                <span className="text-base text-black">Call 911</span>
               </span>
             )}
           </button>
