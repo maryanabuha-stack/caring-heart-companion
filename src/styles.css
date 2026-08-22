@@ -120,6 +120,14 @@
   --icon-missed: #FDEBD9;
   --icon-taken: #E7EDFB;
   --icon-neutral: oklch(0.955 0.004 250);
+
+  --reminder-medication: #E7EDFB;
+  --reminder-water: #E0F2F1;
+  --reminder-walk: #E7F5E9;
+  --reminder-medication-icon: #1449DE;
+  --reminder-water-icon: #2D9CDB;
+  --reminder-walk-icon: #16A34A;
+
   --divider: oklch(0.93 0.005 250);
 
   --sidebar: oklch(0.995 0 0);
