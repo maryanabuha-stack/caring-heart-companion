@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { X } from "lucide-react";
+import { X, AlertTriangle } from "lucide-react";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import {
   AlertDialog,
@@ -21,6 +21,8 @@ export type MedicationDetail = {
   purpose: string;
   time: string;
   state: MedicationState;
+  allergyNote?: string | undefined;
+  allergyConflict?: boolean | undefined;
   takenAt?: string | undefined;
 };
 
@@ -65,6 +67,32 @@ export function MedicationDetailModal({
           <div className="rounded-2xl bg-neutral-row px-5 py-4">
             <p className="text-base font-medium text-muted-foreground">What it&apos;s for</p>
             <p className="mt-1 text-lg font-medium">{med.purpose}</p>
+          </div>
+          <div
+            className={`rounded-2xl px-5 py-4 ${
+              med.allergyConflict ? "bg-warning-surface" : "bg-neutral-row"
+            }`}
+          >
+            <p
+              className={`flex items-center gap-2 text-base font-medium ${
+                med.allergyConflict ? "text-warning-foreground" : "text-muted-foreground"
+              }`}
+            >
+              {med.allergyConflict && (
+                <AlertTriangle
+                  className="h-5 w-5 shrink-0 fill-warning text-warning-foreground"
+                  aria-hidden="true"
+                />
+              )}
+              Allergies and warnings
+            </p>
+            <p
+              className={`mt-1 text-lg font-medium ${
+                med.allergyConflict ? "text-warning-foreground" : ""
+              }`}
+            >
+              {med.allergyNote ?? "No known allergy conflicts."}
+            </p>
           </div>
         </div>
 
