@@ -48,7 +48,7 @@ export function AppSidebar() {
         {!collapsed && <span className="text-2xl font-semibold">CareNest</span>}
         <button
           type="button"
-          onClick={() => setCollapsed((v) => !v)}
+          onClick={toggleCollapsed}
           aria-expanded={!collapsed}
           aria-label={collapsed ? "Expand menu" : "Collapse menu"}
           title={collapsed ? "Expand menu" : "Collapse menu"}
