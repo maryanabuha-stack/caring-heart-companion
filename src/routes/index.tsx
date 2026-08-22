@@ -215,8 +215,8 @@ function TaskRow({
       className="flex min-h-[88px] w-full items-center gap-4 px-2 py-4 text-left"
     >
       <span
-        className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border-2 ${
-          completedAt ? "border-success bg-success" : "border-muted-foreground/50 bg-card"
+        className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-[8px] border-2 ${
+          completedAt ? "border-primary bg-primary" : "border-primary/30 bg-tint"
         }`}
       >
         {completedAt && <Check className="h-5 w-5 text-card" strokeWidth={3} />}
