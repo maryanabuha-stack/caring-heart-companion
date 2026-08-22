@@ -73,7 +73,7 @@ export function MedicationDetailModal({
             <button
               type="button"
               onClick={() => setConfirmOpen(true)}
-              className="flex min-h-[56px] w-full items-center justify-center rounded-lg bg-transparent text-lg font-medium text-primary underline-offset-4 hover:underline"
+              className="flex min-h-[56px] w-full items-center justify-center rounded-[14px] bg-transparent text-lg font-medium text-primary underline-offset-4 hover:underline"
             >
               Undo
             </button>
@@ -81,7 +81,7 @@ export function MedicationDetailModal({
             <button
               type="button"
               onClick={onMarkTaken}
-              className="min-h-[56px] w-full rounded-2xl bg-primary text-lg font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+              className="min-h-[56px] w-full rounded-[14px] bg-primary text-lg font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
             >
               {med.state === "missed" ? "Mark as taken now" : "Mark as taken"}
             </button>
@@ -99,12 +99,12 @@ export function MedicationDetailModal({
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel className="min-h-[56px] rounded-2xl text-lg">
+              <AlertDialogCancel className="min-h-[56px] rounded-[14px] text-lg">
                 Cancel
               </AlertDialogCancel>
               <AlertDialogAction
                 onClick={onUndo}
-                className="min-h-[56px] rounded-2xl bg-primary text-lg text-primary-foreground"
+                className="min-h-[56px] rounded-[14px] bg-primary text-lg text-primary-foreground"
               >
                 Yes, undo
               </AlertDialogAction>
